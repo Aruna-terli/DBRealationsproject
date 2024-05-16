@@ -1,0 +1,139 @@
+body{
+    background-color: rgb(145, 140, 186);
+    font-family: 'Inter UI', sans-serif;
+        margin: 0;
+        
+      
+}
+* ,before,after{
+    box-sizing: border-box;
+  }
+.reg
+{
+    
+    width:57%;
+    
+    background-color: rgb(205, 209, 219);
+    margin:5% 20%;
+    border-radius: 2%;
+    
+  
+}
+h2{
+    padding:4% 5%;
+    text-decoration: underline;
+}
+
+
+
+input[type=text],[type=number],[type="password"],select {
+    font-size:17px;
+    width: 90%;
+    padding: 1% 2%;
+    margin: 2% 0;
+    display: inline-block;
+    border: 2px solid #161616;
+    border-radius: 5%;
+   
+    border-style: ridge;
+  }
+  .gender
+  {
+    font-size: 20px;
+    margin:0% 1%;
+   
+  }
+.gen_details
+{
+    font-size: 20px;
+    padding:3% 1%;
+}
+input[type="radio"]
+{
+    width:20px;
+    height:20px;
+    
+}
+.btn_reg
+{
+    text-align: center;
+    background-color: rgb(23, 23, 59);
+    color:white;
+    padding:1% 4%;
+    font-size: 20px;
+    margin:3% 40%;
+    margin-bottom: 8%;
+
+}
+.left
+{
+    float:left;
+    padding:2%;
+    padding-left:5%;
+    width:50%;
+}
+.right{
+    float:right;
+    padding:2% ;
+    width:50%;
+}
+
+.project_box
+{
+   padding: 20% 30%;
+    max-width: 20px;
+    min-width: 20px;
+    box-shadow: 2px;
+    height: 20%;
+}
+
+
+#customers {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  margin:4% 2%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-right:200px;
+  text-align: left;
+  background-color: #82808c;
+  color: white;
+}
+
+#clients {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  margin:4% 2%;
+}
+
+#clients td, #customers th {
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+#clients tr:nth-child(even){background-color: #f2f2f2;}
+
+#clients tr:hover {background-color: #ddd;}
+
+#clients th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-right:160px;
+  text-align: left;
+  background-color: #82808c;
+  color: white;
+}
