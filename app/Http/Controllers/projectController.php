@@ -59,7 +59,7 @@ class projectController extends Controller
         $project['description'] = $request['description'];
         $project['payment_status'] = '0';
         $project['employe_id'] = '0';
-        $project['role_id'] = '0';
+      
         $project->save();
         $request->session()->flash('success', 'Successfully registered your project');
         if($project)
