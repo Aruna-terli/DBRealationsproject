@@ -41,7 +41,7 @@ class LoginController extends Controller
         $user->phone_no = $request['phone_no'];
         $user->password = Hash::make($request['password']);
         $user->gender = $request['gender'];
-        $user->role = $request['roles']; // Assuming it should be 'roles' instead of 'role'
+        $user->role = $request['role']; 
         
         $user->save();
         
@@ -61,6 +61,7 @@ class LoginController extends Controller
       
         // $a= \Auth::user()->email;
         $credentials = $request->only('email', 'password');
+       
         if (Auth::attempt($credentials)) {
             // Authentication passed...
         
@@ -73,7 +74,7 @@ class LoginController extends Controller
                 return redirect()->route('employedashboard');
             }
             if(\Auth::user()->role == 1)
-            {
+            { 
                 Session::put('client_id', \Auth::user()->id);
              return redirect()->route('clientdashboard');
             }
