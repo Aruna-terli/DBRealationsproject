@@ -36,7 +36,7 @@ class ClientControllerTest extends TestCase
          $data = [
             
              'full_name' => 'Test User',
-             'email_id' => 'test1_' . time() . '@example.com',
+             'email_id' => 'test1_' .mt_rand(1000, 9999) . '@example.com',
              'phone_no' => '1234567890',
              'password' => 'password123',
              're_password' => 'password123',
@@ -48,6 +48,7 @@ class ClientControllerTest extends TestCase
       
          $response = $this->post('/clients', $data);
          $response->assertStatus(302) ; // Assuming successful redirect
+         $this->assertDatabaseHas('users', ['email' => $data['email_id']]);
            
      }
  
@@ -57,6 +58,7 @@ class ClientControllerTest extends TestCase
  
          $data = [
              'full_name' => 'Updated Name',
+             'email_id' => $client['email'],
              'phone_no' => '9876543210',
              'gender' => 'Female',
          ];
@@ -64,6 +66,12 @@ class ClientControllerTest extends TestCase
          $response = $this->put("/clients/{$client->id}", $data);
  
          $response->assertStatus(302); // Assuming successful redirect
+         $this->assertDatabaseHas('users', [
+            'id' => $client->id,
+            'name' => $data['full_name'],
+            'phone_no' => $data['phone_no'],
+            'gender' => $data['gender'],
+        ]);
             
      }
  
@@ -75,6 +83,7 @@ class ClientControllerTest extends TestCase
  
          $response->assertStatus(302) // Assuming successful redirect
              ->assertSessionHas('success');
+             $this->assertDatabaseMissing('users', ['id' => $client->id]);
      }
  
      public function test_can_assign_employee_to_project()
@@ -91,6 +100,8 @@ class ClientControllerTest extends TestCase
  
          $response->assertStatus(302) // Assuming successful redirect
              ->assertSessionHas('success');
+             $this->assertDatabaseHas('user_project', ['user_id' => $employee->id,
+            'project_id'=>$project->id]);
      }
    
 }

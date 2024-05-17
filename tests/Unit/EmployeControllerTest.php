@@ -27,7 +27,7 @@ class EmployeControllerTest extends TestCase
         $data = [
             
             'full_name' => 'Test User',
-            'email_id' => 'test1_' . time() . '@example.com',
+            'email_id' => 'test1' . mt_rand(1000, 9999) . '@example.com',
             'phone_no' => '1234567890',
             'password' => 'password123',
             're_password' => 'password123',
@@ -36,12 +36,13 @@ class EmployeControllerTest extends TestCase
             '_token' =>csrf_token(),
         ];
 
-        $response = $this->post('/employes', $data);
+        $response = $this->POST('employes', $data);
+       
 
         $response->assertStatus(302);// Assuming successful redirect
             // ->assertSessionHas('success');
 
-        // $this->assertDatabaseHas('users', ['email' => $employeeData['email']]);
+        $this->assertDatabaseHas('users', ['email' => $data['email_id']]);
     }
 
     public function test_can_update_employee()
@@ -50,17 +51,21 @@ class EmployeControllerTest extends TestCase
 
         $updatedData = [
             'full_name' => 'Updated Employee Name',
-           
+            'email_id' => $employee['email'],
             'phone_no' => '9876543210',
             'gender' => 'Female',
         ];
 
-        $response = $this->put("/employes/{$employee->id}", $updatedData);
-
+        $response = $this->PUT("employes/{$employee->id}", $updatedData);
+       
         $response->assertStatus(302); // Assuming successful redirect
             // ->assertSessionHas('success');
-
-        // $this->assertDatabaseHas('users', ['name' => 'Updated Employee Name']);
+            $this->assertDatabaseHas('users', [
+                'id' => $employee->id,
+                'name' => $updatedData['full_name'],
+                'phone_no' => $updatedData['phone_no'],
+                'gender' => $updatedData['gender'],
+            ]);
     }
 
     public function test_can_delete_employee()
@@ -72,6 +77,6 @@ class EmployeControllerTest extends TestCase
         $response->assertStatus(302); // Assuming successful redirect
             // ->assertSessionHas('success');
 
-        // $this->assertDatabaseMissing('users', ['id' => $employee->id]);
+        $this->assertDatabaseMissing('users', ['id' => $employee->id]);
     }
 }

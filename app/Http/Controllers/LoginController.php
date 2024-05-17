@@ -46,7 +46,8 @@ class LoginController extends Controller
         $user->save();
         
         if ($user) {
-            return redirect()->route('login')->with('success', "Welcome! You have successfully registered with us.");
+           
+            return redirect()->to('login')->with('success', "Welcome! You have successfully registered with us.");
         } else {
             return redirect()->back()->with('fail', 'Sorry, your registration was not completed. Please try again.');
         }
@@ -61,7 +62,6 @@ class LoginController extends Controller
       
         // $a= \Auth::user()->email;
         $credentials = $request->only('email', 'password');
-       
         if (Auth::attempt($credentials)) {
             // Authentication passed...
         
@@ -74,8 +74,8 @@ class LoginController extends Controller
                 return redirect()->route('employedashboard');
             }
             if(\Auth::user()->role == 1)
-            { 
-                Session::put('client_id', \Auth::user()->id);
+            {
+               
              return redirect()->route('clientdashboard');
             }
              
@@ -109,5 +109,5 @@ class LoginController extends Controller
     
  
     return redirect('/');
-}
+    }
 }

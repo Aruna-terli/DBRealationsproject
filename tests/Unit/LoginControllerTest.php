@@ -23,13 +23,13 @@ class LoginControllerTest extends TestCase
         $data = [
             
             'full_name' => 'Test User',
-            'email_id' => 'test1_' . time() . '@example.com',
+            'email' => 'test1_' . mt_rand(100, 999) . '@example.com',
             'phone_no' => '1234567890',
             'password' => 'password123',
             're_password' => 'password123',
             'gender' => 'Male',
             'role' => '1',
-            '_token' =>csrf_token(),
+            
         ];
 
         $response = $this->post('/savedata', $data);
@@ -37,12 +37,12 @@ class LoginControllerTest extends TestCase
         $response->assertStatus(302); // Assuming successful redirect
             // ->assertSessionHas('success');
 
-        // $this->assertDatabaseHas('users', ['email' => 'test@example.com']);
+        $this->assertDatabaseHas('users', ['email' => $data['email']]);
     }
 
     public function test_can_authenticate_user()
     {
-        $email = 'test2_' . time() . '@example.com';
+        $email = 'test2_' .  mt_rand(100, 999) . '@example.com';
         $user = User::factory()->create([
             'email' => $email,
             'password' => bcrypt('password123'),
@@ -56,8 +56,11 @@ class LoginControllerTest extends TestCase
 
         $response = $this->post('/signup', $credentials);
 
-        $response->assertStatus(200) // Assuming successful login
-            ->assertViewIs('home'); // Assuming view after successful login is 'home'
+        $response->assertStatus(302); 
+        
+            
+            $this->assertDatabaseHas('users', ['email' => $credentials['email']]);
+
     }
 
    

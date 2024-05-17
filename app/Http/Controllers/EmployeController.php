@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Projects;
-
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
 class EmployeController extends Controller
@@ -41,7 +41,7 @@ class EmployeController extends Controller
     public function store(Request $request)
     {
         $validation = $request->validate([
-            'user_id' =>'required|unique:user',
+            
             'full_name'=>'required',
             'email_id'=>'required|email|unique:user',
             'phone_no'=>'required|digits:10',
@@ -55,7 +55,7 @@ class EmployeController extends Controller
        
        
        $user = new User;
-        $user->user_id = $request['user_id'];
+     
         $user->name = $request['full_name'];
         $user->email =$request['email_id'];
         $user->phone_no= $request['phone_no'];
@@ -66,7 +66,7 @@ class EmployeController extends Controller
         $user->save();
         if($user)
         {
-            return redirect()->To('employes')->with('success',"welcome! ,successfully registered with us");
+            return redirect()->route('employes.index')->with('success',"welcome! ,successfully registered with us");
         }
         else 
         {
@@ -129,7 +129,8 @@ class EmployeController extends Controller
         $user->update();
         if($user)
         {
-            if(\Auth::user()->role == '2')
+           
+            if($user->role == '2')
             {
                 return redirect()->route('employes.show', ['employe' => $id])->with('success', 'Welcome! Successfully updated.');
 
