@@ -19,7 +19,7 @@ Route::post('/savedata', 'App\Http\Controllers\LoginController@save')->name('sav
 Route::get('/register','App\Http\Controllers\LoginController@register')->name('register');
 Route::post('/signup','App\Http\Controllers\LoginController@authenticate')->name('signup');
 
-// Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth'])->group(function () {
 
 Route::get('/home', [App\Http\Controllers\LoginController::class, 'admindashboard'])->name('home');
 Route::get('/clientdashboard', [App\Http\Controllers\LoginController::class, 'clientdashboard'])->name('clientdashboard');
@@ -36,7 +36,7 @@ Route::resource('employes', 'App\Http\Controllers\EmployeController');
 Route::get('/project_link/{id}/{user_id}',[App\Http\Controllers\paymentController::class,'project_buy'])->name('project_link');
 
 Route::post('razorpay_payment',[App\Http\Controllers\paymentController::class,'store'])->name('razorpay_payment');
-// });
+});
 
 
 //Auth::routes();

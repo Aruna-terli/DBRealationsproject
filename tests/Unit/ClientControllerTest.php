@@ -22,9 +22,19 @@ class ClientControllerTest extends TestCase
      * @return void
      */
 
+     protected $user;
 
-     public function test_can_get_all_clients()
+     protected function setUp(): void
      {
+         parent::setUp();
+ 
+         // Create a test user
+         $this->user = User::factory()->create();
+     }
+     public function test_can_get_all_clients()
+
+     {
+        $this->actingAs($this->user);
          $response = $this->get('/clients');
  
          $response->assertStatus(200);
@@ -33,6 +43,7 @@ class ClientControllerTest extends TestCase
  
      public function test_can_create_client()
      {
+        $this->actingAs($this->user);
          $data = [
             
              'full_name' => 'Test User',
@@ -54,6 +65,7 @@ class ClientControllerTest extends TestCase
  
      public function test_can_update_client()
      {
+        $this->actingAs($this->user);
          $client = User::factory()->create(['role' => 1]);
  
          $data = [
@@ -77,6 +89,7 @@ class ClientControllerTest extends TestCase
  
      public function test_can_delete_client()
      {
+        $this->actingAs($this->user);
          $client = User::factory()->create(['role' => 1]);
  
          $response = $this->delete("/clients/{$client->id}");
@@ -88,6 +101,7 @@ class ClientControllerTest extends TestCase
  
      public function test_can_assign_employee_to_project()
      {
+        $this->actingAs($this->user);
          $employee = User::factory()->create(['role' => 2]);
          $project = Projects::factory()->create();
  

@@ -18,12 +18,22 @@ class EmployeControllerTest extends TestCase
      *
      * @return void
      */
+    protected $user;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        // Create a test user
+        $this->user = User::factory()->create();
+    }
     public function test_example()
     {
         $this->assertTrue(true);
     }
     public function test_can_create_employee()
     {
+        $this->actingAs($this->user);
         $data = [
             
             'full_name' => 'Test User',
@@ -47,6 +57,7 @@ class EmployeControllerTest extends TestCase
 
     public function test_can_update_employee()
     {
+        $this->actingAs($this->user);
         $employee = User::factory()->create(['role' => 2]);
 
         $updatedData = [
@@ -70,6 +81,7 @@ class EmployeControllerTest extends TestCase
 
     public function test_can_delete_employee()
     {
+        $this->actingAs($this->user);
         $employee = User::factory()->create(['role' => 2]);
 
         $response = $this->delete("/employes/{$employee->id}");

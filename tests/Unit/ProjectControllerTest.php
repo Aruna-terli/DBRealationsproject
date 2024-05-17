@@ -5,6 +5,7 @@ namespace Tests\Unit;
 //use PHPUnit\Framework\TestCase;
 use Tests\TestCase;
 use App\Models\Projects;
+use App\Models\User;
 
 
 class ProjectControllerTest extends TestCase
@@ -14,12 +15,22 @@ class ProjectControllerTest extends TestCase
      *
      * @return void
      */
+    protected $user;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        // Create a test user
+        $this->user = User::factory()->create();
+    }
     public function test_example()
     {
         $this->assertTrue(true);
     }
     public function test_can_create_project()
     {
+        $this->actingAs($this->user);
         // $projectData = Projects::factory()->make()->toArray();
         $data = [
             
@@ -41,6 +52,7 @@ class ProjectControllerTest extends TestCase
 
     public function test_can_update_project()
     {
+        $this->actingAs($this->user);
         $project = Projects::factory()->create();
 
         $updatedData = [
@@ -59,6 +71,7 @@ class ProjectControllerTest extends TestCase
 
     public function test_can_delete_project()
     {
+        $this->actingAs($this->user);
         $project = Projects::factory()->create();
 
         $response = $this->delete("/projects/{$project->id}");

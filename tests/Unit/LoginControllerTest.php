@@ -17,6 +17,7 @@ class LoginControllerTest extends TestCase
     {
         $this->assertTrue(true);
     }
+    
 
     public function test_can_register_user()
     {
