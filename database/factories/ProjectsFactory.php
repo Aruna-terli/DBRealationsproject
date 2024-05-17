@@ -23,7 +23,7 @@ class ProjectsFactory extends Factory
             'payment_status' => '0',
             'employe_id' => '0',
             'user_id' => '0',
-            'role_id' => '0',
+           
         ];
 
         

@@ -93,10 +93,12 @@ class LoginController extends Controller
     }
     public function clientdashboard()
     {
+        session::put('client_id' ,\Auth::user()->id);
         return view('clientdashboard')->with('id',\Auth::user()->id);
     }
     public function employedashboard()
     {
+        session::put('employe_id' ,\Auth::user()->id);
         return view('employedashboard')->with('id',\Auth::user()->id);
     }
     public function logout(Request $request)
