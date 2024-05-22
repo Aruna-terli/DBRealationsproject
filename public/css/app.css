@@ -4332,8 +4332,8 @@ textarea.form-control-lg {
 }
 
 .card {
-  --bs-card-spacer-y: 3rem;
-  --bs-card-spacer-x: 3rem;
+  --bs-card-spacer-y: 1rem;
+  --bs-card-spacer-x: 1rem;
   --bs-card-title-spacer-y: 0.5rem;
   --bs-card-title-color: ;
   --bs-card-subtitle-color: ;
@@ -4411,25 +4411,11 @@ textarea.form-control-lg {
   margin-left: var(--bs-card-spacer-x);
 }
 
-.project-box{
-  color:white;
-  text-align: center;
-  background-color: #4d992c;
-  box-sizing: border-box;
-  box-shadow: #000;
-  border-color: #000;
-  border-radius: 3px;
-  width:210px;
-  height:165px;
-  padding:50px 40px;
-  margin:50px 40px;
-
-}
 .card-header {
   padding: var(--bs-card-cap-padding-y) var(--bs-card-cap-padding-x);
   margin-bottom: 0;
   color: var(--bs-card-cap-color);
-  background-color: rgb(42, 42, 66);
+  background-color: var(--bs-card-cap-bg);
   border-bottom: var(--bs-card-border-width) solid var(--bs-card-border-color);
 }
 .card-header:first-child {
@@ -8789,10 +8775,6 @@ textarea.form-control-lg {
 .bg-white {
   --bs-bg-opacity: 1;
   background-color: rgba(var(--bs-white-rgb), var(--bs-bg-opacity)) !important;
-}
-.bg-color{
-  --bs-bg-opacity: 1;
-  background-color: #91acb1;
 }
 
 .bg-body {

@@ -36,6 +36,9 @@ Route::resource('employes', 'App\Http\Controllers\EmployeController');
 Route::get('/project_link/{id}/{user_id}',[App\Http\Controllers\paymentController::class,'project_buy'])->name('project_link');
 
 Route::post('razorpay_payment',[App\Http\Controllers\paymentController::class,'store'])->name('razorpay_payment');
+Route::get('chat',[App\Http\Controllers\ChatController::class,'index'])->name('chat');
+Route::post('sendmessage',[App\Http\Controllers\ChatController::class,'sendmessage'])->name('sendmessage');
+// Route::get('fetchMessages/{userId}',[App\Http\Controllers\ChatController::class,'fetchMessages'])->name('fetchMessages');
 });
 
 

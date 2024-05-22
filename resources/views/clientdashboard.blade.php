@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header" style="color:white">client Dashboard</div>
+                <div class="card-header" style="color:white;background-color: #3e3a3a;">client Dashboard</div>
                 <div class="card-body">
                     @if (session('status'))
                     <div class="alert alert-success" role="alert">
