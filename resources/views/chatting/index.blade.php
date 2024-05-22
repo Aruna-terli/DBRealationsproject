@@ -2,6 +2,7 @@
 
 @section('content')
 <link rel="stylesheet" type="text/css" href="{{ URL::to('css/chat.css') }}">
+
 @if (auth()->user()->role == 2)
     <a style="font-size:25px" href="{{ route('employedashboard') }}">back</a>
 @elseif (auth()->user()->role == 1)
@@ -13,7 +14,8 @@
 <div class="container py-5">
   <div class="row">
     <div class="col-md-3">
-      <div class="list-group">
+      <input type="text" id="userSearch" class="form-control mb-3" placeholder="Search users...">
+      <div class="list-group" id="userList" style="max-height: 400px; overflow-y: auto;">
         @foreach($users as $user)
           <a href="{{ route('chat', ['user_id' => $user->id]) }}" class="list-group-item list-group-item-action">
             {{ $user->name }}
@@ -43,8 +45,7 @@
                   </div>
                   <div data-mdb-input-init class="form-outline">
                     <textarea class="form-control" id="textAreaExample" placeholder="Type your message" rows="4"></textarea>
-                   
-                    <button id="sendMessage" class="btn btn-primary mt-2 ">Send</button>
+                    <button id="sendMessage" class="btn btn-primary mt-2">Send</button>
                   </div>
                 </div>
               </div>
@@ -89,6 +90,7 @@ document.getElementById('sendMessage').addEventListener('click', function () {
             </div>
         `;
         messagesDiv.appendChild(messageElement);
+        messagesDiv.scrollTop = messagesDiv.scrollHeight; // Scroll to bottom
     }).catch(error => {
         console.error('Error:', error);
     });
@@ -106,23 +108,21 @@ Echo.channel('public')
                 </div>
             `;
             messagesDiv.appendChild(messageElement);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight; // Scroll to bottom
         }
     });
 
-
-Echo.channel('public')
-    .listen('MessageSent', (e) => {
-        if (e.message.sender_id !== {{ auth()->id() }} && e.message.receiver_id === {{ $receiver->id ?? 'null' }}) {
-            const messagesDiv = document.getElementById('messages');
-            const messageElement = document.createElement('div');
-            messageElement.classList.add('d-flex', 'flex-row', 'mb-4');
-            messageElement.innerHTML = `
-                <div class="p-3 ms-3 border rounded" style="background-color: rgba(57, 192, 237, .2);">
-                    <p class="small mb-0">${e.message.message}</p>
-                </div>
-            `;
-            messagesDiv.appendChild(messageElement);
+document.getElementById('userSearch').addEventListener('input', function() {
+    const query = this.value.toLowerCase();
+    const users = document.querySelectorAll('#userList .list-group-item');
+    users.forEach(function(user) {
+        const userName = user.textContent.toLowerCase();
+        if (userName.includes(query)) {
+            user.style.display = 'block';
+        } else {
+            user.style.display = 'none';
         }
     });
+});
 </script>
 @endsection
