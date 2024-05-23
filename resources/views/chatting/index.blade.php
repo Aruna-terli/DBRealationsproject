@@ -28,7 +28,18 @@
         <div class="container py-5">
           <div class="row d-flex justify-content-center">
             <div class="col-md-12">
+            <button class="btn btn-dark" >Make group</button>
+              <button class="btn btn-dark" id="makeGroupBtn">Join group</button>
+
+              <div id="userDropdown" class="dropdown-content" style="display: none; margin-top: 10px;">
+                @foreach($users as $user)
+                <li >
+                  <a  href="#" data-user-id="{{ $user->id }}">{{ $user->name }}</a>
+                </li>
+                @endforeach
+              </div>
               <div class="card" id="chat1" style="border-radius: 15px;">
+              
                 <div class="card-header d-flex justify-content-between align-items-center p-3 bg-info text-white border-bottom-0"
                   style="border-top-left-radius: 15px; border-top-right-radius: 15px;">
                   <p class="mb-0 fw-bold">Live chat</p>
@@ -39,6 +50,7 @@
                       <div class="d-flex {{ $message->sender_id == auth()->id() ? 'flex-row-reverse' : 'flex-row' }} mb-4">
                         <div class="p-3 {{ $message->sender_id == auth()->id() ? 'me-3' : 'ms-3' }} border rounded" style="background-color: {{ $message->sender_id == auth()->id() ? '#fbfbfb' : 'rgba(57, 192, 237, .2)' }};">
                           <p class="small mb-0">{{ $message->message }}</p>
+                          <p class="small text-muted">{{ $message->created_at->format('H:i:s d/m/Y') }}</p>
                         </div>
                       </div>
                     @endforeach
@@ -87,6 +99,7 @@ document.getElementById('sendMessage').addEventListener('click', function () {
         messageElement.innerHTML = `
             <div class="p-3 me-3 border rounded" style="background-color: #fbfbfb;">
                 <p class="small mb-0">${data.message}</p>
+              
             </div>
         `;
         messagesDiv.appendChild(messageElement);
@@ -105,6 +118,7 @@ Echo.channel('public')
             messageElement.innerHTML = `
                 <div class="p-3 ms-3 border rounded" style="background-color: rgba(57, 192, 237, .2);">
                     <p class="small mb-0">${e.message.message}</p>
+                    
                 </div>
             `;
             messagesDiv.appendChild(messageElement);
