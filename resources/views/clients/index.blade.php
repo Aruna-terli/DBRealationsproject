@@ -1,7 +1,13 @@
 @extends('layouts.app')
 <link rel="stylesheet" type="text/css" href="{{URL::to('css/registration.css')}}">
 @section('content')
-<a style="font-size:25px;float:left;margin-left:2%" href="{{route('home')}}">back</a>
+@if (auth()->user()->role == 2)
+    <a style="font-size:25px" href="{{ route('employedashboard') }}">back</a>
+@elseif (auth()->user()->role == 1)
+    <a style="font-size:25px" href="{{ route('clientdashboard') }}">back</a>
+@else
+    <a style="font-size:25px" href="{{ route('home') }}">back</a>
+@endif
 <a style="font-size:25px;float:right;margin-right:4%"href="{{route('clients.create')}}">Register new client</a>
                @if(Session::has('success'))
                     <div class="alert alert-success">{{Session::get('success')}}</div>

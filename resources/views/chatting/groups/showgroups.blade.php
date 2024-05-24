@@ -2,29 +2,25 @@
 
 @section('content')
 <link rel="stylesheet" type="text/css" href="{{ URL::to('css/chat.css') }}">
-@if (auth()->user()->role == 2)
-    <a style="font-size:25px" href="{{ route('employedashboard') }}">back</a>
-@elseif (auth()->user()->role == 1)
-    <a style="font-size:25px" href="{{ route('clientdashboard') }}">back</a>
-@else
-    <a style="font-size:25px" href="{{ route('home') }}">back</a>
-@endif
+
+    <a style="font-size:25px" href="{{ route('chat') }}">back</a>
+
 <div class="col-md-5">
-              @if(Session::has('success'))
-                <div class="alert alert-success">{{Session::get('success')}}</div>
-              @endif   
-              @if(Session::has('fail'))
-             <div class="alert alert-danger">{{Session::get('fail')}}</div>
-          @endif  
-         </div>
+  @if(Session::has('success'))
+    <div class="alert alert-success">{{ Session::get('success') }}</div>
+  @endif   
+  @if(Session::has('fail'))
+    <div class="alert alert-danger">{{ Session::get('fail') }}</div>
+  @endif  
+</div>
 <div class="container py-5">
   <div class="row">
-  <div class="col-md-3">
-      <input type="text" id="userSearch" class="form-control mb-3" placeholder="Search users...">
-      <div class="list-group" id="userList" style="max-height: 400px; overflow-y: auto;">
-        @foreach($users as $user)
-          <a href="{{ route('chat', ['user_id' => $user->id]) }}" class="list-group-item list-group-item-action">
-            {{ $user->name }}
+    <div class="col-md-3">
+      <input type="text" id="groupSearch" class="form-control mb-3" placeholder="Search groups...">
+      <div class="list-group" id="groupList" style="max-height: 400px; overflow-y: auto;">
+        @foreach($groups as $group)
+          <a href="{{ route('group.show', ['group_id' => $group->id]) }}" class="list-group-item list-group-item-action" data-group-id="{{ $group->id }}">
+            {{ $group->name }}
           </a>
         @endforeach
       </div>
@@ -34,19 +30,7 @@
         <div class="container py-5">
           <div class="row d-flex justify-content-center">
             <div class="col-md-12">
-            <a class="btn btn-dark" href="{{ route('group.create') }}">Make group</a>
-            <a class="btn btn-dark" href="{{ route('group.show') }}">group chat</a>
-           
-              <button class="btn btn-dark" id="makeGroupBtn" >Join group</button>
              
-              <div id="userDropdown" class="dropdown-content" style="display: none; margin-top: 10px;">
-              @foreach($groups as $user)
-                <li >
-                  <a  href="{{ route('group.join', ['group_id' => $user->id]) }}" data-user-id="{{ $user->id }}">{{ $user->name }}</a>
-                </li>
-                @endforeach
-              </div>
-
               <div class="card" id="chat1" style="border-radius: 15px; margin-top: 20px;">
                 <div class="card-header d-flex justify-content-between align-items-center p-3 bg-info text-white border-bottom-0"
                   style="border-top-left-radius: 15px; border-top-right-radius: 15px;">
@@ -54,10 +38,13 @@
                 </div>
                 <div class="card-body" style="height: 400px; overflow-y: scroll;">
                   <div id="messages">
+                    <!-- Messages will be loaded here -->
                     @foreach($messages as $message)
-                      <div class="d-flex {{ $message->sender_id == auth()->id() ? 'flex-row-reverse' : 'flex-row' }} mb-4">
-                        <div class="p-3 {{ $message->sender_id == auth()->id() ? 'me-3' : 'ms-3' }} border rounded" style="background-color: {{ $message->sender_id == auth()->id() ? '#fbfbfb' : 'rgba(57, 192, 237, .2)' }};">
+                      <div class="d-flex {{ $message->user_id == auth()->id() ? 'flex-row-reverse' : 'flex-row' }} mb-4">
+                        <div class="p-3 {{ $message->user_id == auth()->id() ? 'me-3' : 'ms-3' }} border rounded" style="background-color: {{ $message->user_id == auth()->id() ? '#fbfbfb' : 'rgba(57, 192, 237, .2)' }};">
+                        <p ><b>{{$message->from}}</b></p>
                           <p class="small mb-0">{{ $message->message }}</p>
+                          
                           <p class="small text-muted">{{ \Carbon\Carbon::parse($message->created_at)->format('H:i') }}</p>
                         </div>
                       </div>
@@ -65,7 +52,8 @@
                   </div>
                   <div data-mdb-input-init class="form-outline">
                     <textarea class="form-control" id="textAreaExample" placeholder="Type your message" rows="4"></textarea>
-                    <button id="sendMessage" class="btn btn-primary mt-2">Send</button>
+                    <input id="group_id" type="hidden" class="form-control @error('code') is-invalid @enderror" value="{{@$group_id}}"name="group_id" value="" required autocomplete="name" autofocus>
+                    <button id="sendMessage" class="btn btn-primary mt-2" >Send</button>
                   </div>
                 </div>
               </div>
@@ -80,22 +68,37 @@
 
 @section('scripts')
 <script type="module">
-document.getElementById('makeGroupBtn').addEventListener('click', function () {
-    const dropdown = document.getElementById('userDropdown');
-    dropdown.style.display = dropdown.style.display === 'none' || dropdown.style.display === '' ? 'block' : 'none';
+
+
+document.getElementById('groupList').addEventListener('click', function (event) {
+    if (event.target && event.target.matches('a.list-group-item')) {
+        const groupId = event.target.getAttribute('data-group-id');
+       
+        
+        // fetchMessages(groupId);
+       
+    }
 });
 
 document.getElementById('sendMessage').addEventListener('click', function () {
     const message = document.getElementById('textAreaExample').value;
-    const receiverId = {{ $receiver->id ?? 'null' }};
+    const group_id = document.getElementById('group_id').value;
+    
 
-    fetch('{{ route('sendmessage') }}', {
+   
+    
+
+    fetch('{{ route('sendGroupMessage') }}', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
         },
-        body: JSON.stringify({ message: message, receiver_id: receiverId })
+        body: JSON.stringify({ 
+            message: message, 
+            group_id: group_id,
+            name: '{{ auth()->user()->name }}' 
+        })
     }).then(response => {
         if (!response.ok) {
             return response.text().then(text => { throw new Error(text) });
@@ -110,7 +113,6 @@ document.getElementById('sendMessage').addEventListener('click', function () {
         messageElement.innerHTML = `
             <div class="p-3 me-3 border rounded" style="background-color: #fbfbfb;">
                 <p class="small mb-0">${data.message}</p>
-           
             </div>
         `;
         messagesDiv.appendChild(messageElement);
@@ -119,16 +121,44 @@ document.getElementById('sendMessage').addEventListener('click', function () {
     });
 });
 
+function fetchMessages(groupId) {
+    fetch(`/messages/${groupId}`)
+        .then(response => response.json())
+        .then(data => {
+            const messagesDiv = document.getElementById('messages');
+            messagesDiv.innerHTML = '';
+            data.messages.forEach(message => {
+                appendMessage(message, message.sender_id == {{ auth()->id() }});
+            });
+        });
+}
+
+function appendMessage(message, isSender) {
+    const messagesDiv = document.getElementById('messages');
+    const messageElement = document.createElement('div');
+    messageElement.classList.add('d-flex', isSender ? 'flex-row-reverse' : 'flex-row', 'mb-4');
+    messageElement.innerHTML = `
+        <div class="p-3 ${isSender ? 'me-3' : 'ms-3'} border rounded" style="background-color: ${isSender ? '#fbfbfb' : 'rgba(57, 192, 237, .2)'};">
+            <p class="small mb-0">${message.message}</p>
+           
+        </div>
+    `;
+    messagesDiv.appendChild(messageElement);
+}
+
+
 Echo.channel('public')
     .listen('MessageSent', (e) => {
-        if (e.message.sender_id !== {{ auth()->id() }} && e.message.receiver_id === {{ $receiver->id ?? 'null' }}) {
+        const groupId = document.getElementById('sendMessage').getAttribute('data-group-id');
+      
+        if (e.message.group_id == groupId) {
             const messagesDiv = document.getElementById('messages');
             const messageElement = document.createElement('div');
             messageElement.classList.add('d-flex', 'flex-row', 'mb-4');
             messageElement.innerHTML = `
                 <div class="p-3 ms-3 border rounded" style="background-color: rgba(57, 192, 237, .2);">
                     <p class="small mb-0">${e.message.message}</p>
-                  
+                    
                 </div>
             `;
             messagesDiv.appendChild(messageElement);

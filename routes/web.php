@@ -38,6 +38,19 @@ Route::get('/project_link/{id}/{user_id}',[App\Http\Controllers\paymentControlle
 Route::post('razorpay_payment',[App\Http\Controllers\paymentController::class,'store'])->name('razorpay_payment');
 Route::get('chat',[App\Http\Controllers\ChatController::class,'index'])->name('chat');
 Route::post('sendmessage',[App\Http\Controllers\ChatController::class,'sendmessage'])->name('sendmessage');
+Route::post('sendGroupMessage',[App\Http\Controllers\ChatController::class,'sendGroupMessage'])->name('sendGroupMessage');
+
+
+Route::get('/group/show', 'App\Http\Controllers\ChatController@show')->name('group.show');
+Route::get('/group/create', 'App\Http\Controllers\GroupController@create_form')->name('group.create');
+Route::post('/group/create', 'App\Http\Controllers\GroupController@create');
+Route::get('/group/join/{group_id}', 'App\Http\Controllers\GroupController@join_form')->name('group.join');
+Route::post('/group/join', 'App\Http\Controllers\GroupController@join');
+Route::get('/group/edit/{id}', 'App\Http\Controllers\GroupController@edit')->name('group.edit');
+Route::post('/group/update/{id}', 'App\Http\Controllers\GroupController@update');
+Route::get('/group/delete/{id}', 'App\Http\Controllers\GroupController@deleteGroup')->name('group.delete');
+Route::get('/group/members_list/{id}', 'App\Http\Controllers\GroupController@members_list')->name('users_in_group');
+Route::get('/remove_user/{id}/{user_id}', 'App\Http\Controllers\GroupController@remove_user');
 // Route::get('fetchMessages/{userId}',[App\Http\Controllers\ChatController::class,'fetchMessages'])->name('fetchMessages');
 });
 
