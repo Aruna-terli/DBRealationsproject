@@ -19,7 +19,7 @@
       <input type="text" id="groupSearch" class="form-control mb-3" placeholder="Search groups...">
       <div class="list-group" id="groupList" style="max-height: 400px; overflow-y: auto;">
         @foreach($groups as $group)
-          <a href="{{ route('group.show', ['group_id' => $group->id]) }}" class="list-group-item list-group-item-action" data-group-id="{{ $group->id }}">
+          <a href="{{ route('group.show', ['group_id' => $group->id,'group_name'=>$group->name]) }}" class="list-group-item list-group-item-action" data-group-id="{{ $group->id }}" data-group-name="{{$group->name}}">
             {{ $group->name }}
           </a>
         @endforeach
@@ -34,7 +34,9 @@
               <div class="card" id="chat1" style="border-radius: 15px; margin-top: 20px;">
                 <div class="card-header d-flex justify-content-between align-items-center p-3 bg-info text-white border-bottom-0"
                   style="border-top-left-radius: 15px; border-top-right-radius: 15px;">
-                  <p class="mb-0 fw-bold">Live chat</p>
+                  @if($group_name)
+                  <p class="mb-0 fw-bold">{{$group_name}}</p>
+                @endif
                 </div>
                 <div class="card-body" style="height: 400px; overflow-y: scroll;">
                   <div id="messages">
@@ -53,6 +55,7 @@
                   <div data-mdb-input-init class="form-outline">
                     <textarea class="form-control" id="textAreaExample" placeholder="Type your message" rows="4"></textarea>
                     <input id="group_id" type="hidden" class="form-control @error('code') is-invalid @enderror" value="{{@$group_id}}"name="group_id" value="" required autocomplete="name" autofocus>
+                    <input id="group_name" type="hidden" class="form-control @error('code') is-invalid @enderror" value="{{@$group_name}}"name="group_name" value="" required autocomplete="name" autofocus>
                     <button id="sendMessage" class="btn btn-primary mt-2" >Send</button>
                   </div>
                 </div>
@@ -73,7 +76,9 @@
 document.getElementById('groupList').addEventListener('click', function (event) {
     if (event.target && event.target.matches('a.list-group-item')) {
         const groupId = event.target.getAttribute('data-group-id');
-       
+      //   const GroupName = event.target.getAttribute('data-group-name');
+      //  console.log(GroupName);
+      //  chat1.innerHTML=`<p ><b>${GroupName}</b></p>`;
         
         // fetchMessages(groupId);
        
@@ -84,6 +89,7 @@ document.getElementById('groupList').addEventListener('click', function (event) 
 document.getElementById('sendMessage').addEventListener('click', function () {
     const message = document.getElementById('textAreaExample').value;
     const group_id = document.getElementById('group_id').value;
+    conat group_name = document.getElementById('group_name').value
     
 
    
@@ -98,6 +104,7 @@ document.getElementById('sendMessage').addEventListener('click', function () {
         body: JSON.stringify({ 
             message: message, 
             group_id: group_id,
+            group_name = group_name,
             name: '{{ auth()->user()->name }}' 
         })
     }).then(response => {
@@ -110,10 +117,14 @@ document.getElementById('sendMessage').addEventListener('click', function () {
 
         const messagesDiv = document.getElementById('messages');
         const messageElement = document.createElement('div');
+        const receivedTime = new Date();
+        const formattedReceivedTime = receivedTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         messageElement.classList.add('d-flex', 'flex-row-reverse', 'mb-4');
         messageElement.innerHTML = `
             <div class="p-3 me-3 border rounded" style="background-color: #fbfbfb;">
+            <p ><b>${data.message.name}</b></p>
                 <p class="small mb-0">${data.message.message}</p>
+                <p class="small text-muted">${formattedReceivedTime }</p>
             </div>
         `;
         messagesDiv.appendChild(messageElement);
@@ -160,10 +171,15 @@ channel.bind('MessageSent', function(e) {
   if (e.sender_id !== {{ auth()->id() }} ) {
             const messagesDiv = document.getElementById('messages');
             const messageElement = document.createElement('div');
+            const receivedTime = new Date();
+        const formattedReceivedTime = receivedTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
             messageElement.classList.add('d-flex', 'flex-row', 'mb-4');
             messageElement.innerHTML = `
                 <div class="p-3 ms-3 border rounded" style="background-color: rgba(57, 192, 237, .2);">
+                <p ><b>${e.name}</b></p>
                     <p class="small mb-0">${e.message}</p>
+                    <p class="small text-muted">${formattedReceivedTime }</p>
                   
                 </div>
             `;

@@ -22,13 +22,15 @@ class MessageSent  implements ShouldBroadcast
     public $message;
     public $receiver_id;
     public $sender_id;
+    public $name;
   
     public function __construct($message)
     {
         
         $this->message = $message['message'];
         $this->receiver_id = $message['receiver_id'];
-        $this->sender_id = $message['sender_id'];  
+        $this->sender_id = $message['sender_id']; 
+        $this->name = $message['name'] ;
        
     }
 

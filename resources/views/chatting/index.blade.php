@@ -120,10 +120,13 @@ document.getElementById('sendMessage').addEventListener('click', function () {
 
         const messagesDiv = document.getElementById('messages');
         const messageElement = document.createElement('div');
+        const receivedTime = new Date();
+        const formattedReceivedTime = receivedTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         messageElement.classList.add('d-flex', 'flex-row-reverse', 'mb-4');
         messageElement.innerHTML = `
             <div class="p-3 me-3 border rounded" style="background-color: #fbfbfb;">
                 <p class="small mb-0">${data.message.message}</p>
+                <p class="small text-muted">${formattedReceivedTime }</p>
            
             </div>
         `;
@@ -146,10 +149,13 @@ channel.bind('MessageSent', function(e) {
   if (e.sender_id !== {{ auth()->id() }} ) {
             const messagesDiv = document.getElementById('messages');
             const messageElement = document.createElement('div');
+            const receivedTime = new Date();
+        const formattedReceivedTime = receivedTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
             messageElement.classList.add('d-flex', 'flex-row', 'mb-4');
             messageElement.innerHTML = `
                 <div class="p-3 ms-3 border rounded" style="background-color: rgba(57, 192, 237, .2);">
                     <p class="small mb-0">${e.message}</p>
+                    <p class="small text-muted">${formattedReceivedTime }</p>
                   
                 </div>
             `;

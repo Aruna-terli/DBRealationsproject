@@ -49,6 +49,7 @@ class ChatController extends Controller
       $message['message'] = $request->message;
       $message['receiver_id' ]= $request->receiver_id;
       $message['sender_id'] = auth()->id();
+      $message['name'] = auth()->user()->name;
 
       $newMessage = Message::create([
         
@@ -66,11 +67,12 @@ class ChatController extends Controller
     public function show(Request $request)
     {
       $group_id = $request->group_id;
+      $group_name = $request->group_name;
       $users = User::where('id', '!=', auth()->id())->get();
       $groups = Group::get();
       $messages = GroupMessages::where('group_id', $group_id)->orderBy('created_at', 'asc')->get();
       
-      return view('chatting/groups/showgroups', compact('messages', 'users','groups','group_id'));
+      return view('chatting/groups/showgroups', compact('messages', 'users','groups','group_id','group_name'));
     }
     public function sendGroupMessage(Request $request)
     {
@@ -87,12 +89,13 @@ class ChatController extends Controller
       $message['name']= $request['name'];
       $message['sender_id'] = auth()->id();
       $message['receiver_id'] = $request['group_id'];
+      
 
       $newMessage = GroupMessages::create([
           
           'user_id' => auth()->id(),
           'group_id'=>$message['receiver_id'],
-          'name'=> $message['sender_id'],
+          'name'=> $message['name'],
           'from'=>auth()->user()->name,
           'is_read'=>0,
         
