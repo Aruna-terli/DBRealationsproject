@@ -46,15 +46,17 @@ class ChatController extends Controller
         'message' => 'required|string|max:255',
         'receiver_id' => 'required|integer|exists:users,id'
     ]);
-      $message = $request->message;
-      $receiver_id = $request->receiver_id;
+      $message['message'] = $request->message;
+      $message['receiver_id' ]= $request->receiver_id;
+      $message['sender_id'] = auth()->id();
 
       $newMessage = Message::create([
+        
           'sender_id' => auth()->id(),
-          'receiver_id' => $receiver_id,
-          'message' => $message,
+          
+         'receiver_id' => $message['receiver_id'],
+          'message' => $message['message'],
       ]);
-
       broadcast(new MessageSent($message))->toOthers();
 
       return response()->json(['message' => $message]);
@@ -80,20 +82,21 @@ class ChatController extends Controller
         'name'=>'required',
         'group_id'=>'required'
     ]);
-      $message = $request['message'];
+      $message['message'] = $request['message'];
     
-      $name = $request['name'];
-      $group_id = $request['group_id'];
+      $message['name']= $request['name'];
+      $message['sender_id'] = auth()->id();
+      $message['receiver_id'] = $request['group_id'];
 
       $newMessage = GroupMessages::create([
           
           'user_id' => auth()->id(),
-          'group_id'=>$group_id,
-          'name'=> $name,
+          'group_id'=>$message['receiver_id'],
+          'name'=> $message['sender_id'],
           'from'=>auth()->user()->name,
           'is_read'=>0,
         
-          'message' => $message,
+          'message' => $message['message'],
       ]);
 
       broadcast(new MessageSent($message))->toOthers();

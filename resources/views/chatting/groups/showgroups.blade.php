@@ -80,6 +80,7 @@ document.getElementById('groupList').addEventListener('click', function (event) 
     }
 });
 
+
 document.getElementById('sendMessage').addEventListener('click', function () {
     const message = document.getElementById('textAreaExample').value;
     const group_id = document.getElementById('group_id').value;
@@ -112,7 +113,7 @@ document.getElementById('sendMessage').addEventListener('click', function () {
         messageElement.classList.add('d-flex', 'flex-row-reverse', 'mb-4');
         messageElement.innerHTML = `
             <div class="p-3 me-3 border rounded" style="background-color: #fbfbfb;">
-                <p class="small mb-0">${data.message}</p>
+                <p class="small mb-0">${data.message.message}</p>
             </div>
         `;
         messagesDiv.appendChild(messageElement);
@@ -146,23 +147,46 @@ function appendMessage(message, isSender) {
     messagesDiv.appendChild(messageElement);
 }
 
+Pusher.logToConsole = true;
 
-Echo.channel('public')
-    .listen('MessageSent', (e) => {
-        const groupId = document.getElementById('sendMessage').getAttribute('data-group-id');
-      
-        if (e.message.group_id == groupId) {
+ var pusher = new Pusher('{{ env('MIX_PUSHER_APP_KEY') }}', {
+  cluster: '{{ env('MIX_PUSHER_APP_CLUSTER') }}'
+});
+
+var channel = pusher.subscribe('public');
+channel.bind('MessageSent', function(e) {
+
+
+  if (e.sender_id !== {{ auth()->id() }} ) {
             const messagesDiv = document.getElementById('messages');
             const messageElement = document.createElement('div');
             messageElement.classList.add('d-flex', 'flex-row', 'mb-4');
             messageElement.innerHTML = `
                 <div class="p-3 ms-3 border rounded" style="background-color: rgba(57, 192, 237, .2);">
-                    <p class="small mb-0">${e.message.message}</p>
-                    
+                    <p class="small mb-0">${e.message}</p>
+                  
                 </div>
             `;
             messagesDiv.appendChild(messageElement);
-        }
-    });
+  }
+});
+
+// Echo.channel('public')
+//     .listen('MessageSent', (e) => {
+//         const groupId = document.getElementById('sendMessage').getAttribute('data-group-id');
+      
+//         if (e.message.group_id == groupId) {
+//             const messagesDiv = document.getElementById('messages');
+//             const messageElement = document.createElement('div');
+//             messageElement.classList.add('d-flex', 'flex-row', 'mb-4');
+//             messageElement.innerHTML = `
+//                 <div class="p-3 ms-3 border rounded" style="background-color: rgba(57, 192, 237, .2);">
+//                     <p class="small mb-0">${e.message.message}</p>
+                    
+//                 </div>
+//             `;
+//             messagesDiv.appendChild(messageElement);
+//         }
+//     });
 </script>
 @endsection

@@ -73,6 +73,18 @@
 </div>
 
 <script>
+    document.getElementById('userSearch').addEventListener('input', function() {
+    const query = this.value.toLowerCase();
+    const users = document.querySelectorAll('#userList .list-group-item');
+    users.forEach(function(user) {
+        const userName = user.textContent.toLowerCase();
+        if (userName.includes(query)) {
+            user.style.display = 'block';
+        } else {
+            user.style.display = 'none';
+        }
+    });
+});
     document.addEventListener('DOMContentLoaded', function () {
         const userList = document.getElementById('userList');
         const userNameLabel = document.getElementById('userNameLabel');

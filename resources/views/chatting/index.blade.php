@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<link rel="stylesheet" type="text/css" href="{{ URL::to('css/chat.css') }}">
+
+<script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+<script src="{{ asset('js/app.js') }}"></script>
 @if (auth()->user()->role == 2)
     <a style="font-size:25px" href="{{ route('employedashboard') }}">back</a>
 @elseif (auth()->user()->role == 1)
@@ -80,6 +82,18 @@
 
 @section('scripts')
 <script type="module">
+  document.getElementById('userSearch').addEventListener('input', function() {
+    const query = this.value.toLowerCase();
+    const users = document.querySelectorAll('#userList .list-group-item');
+    users.forEach(function(user) {
+        const userName = user.textContent.toLowerCase();
+        if (userName.includes(query)) {
+            user.style.display = 'block';
+        } else {
+            user.style.display = 'none';
+        }
+    });
+});
 document.getElementById('makeGroupBtn').addEventListener('click', function () {
     const dropdown = document.getElementById('userDropdown');
     dropdown.style.display = dropdown.style.display === 'none' || dropdown.style.display === '' ? 'block' : 'none';
@@ -109,7 +123,7 @@ document.getElementById('sendMessage').addEventListener('click', function () {
         messageElement.classList.add('d-flex', 'flex-row-reverse', 'mb-4');
         messageElement.innerHTML = `
             <div class="p-3 me-3 border rounded" style="background-color: #fbfbfb;">
-                <p class="small mb-0">${data.message}</p>
+                <p class="small mb-0">${data.message.message}</p>
            
             </div>
         `;
@@ -118,21 +132,46 @@ document.getElementById('sendMessage').addEventListener('click', function () {
         console.error('Error:', error);
     });
 });
+ // Enable pusher logging - don't include this in production
+ Pusher.logToConsole = true;
 
-Echo.channel('public')
-    .listen('MessageSent', (e) => {
-        if (e.message.sender_id !== {{ auth()->id() }} && e.message.receiver_id === {{ $receiver->id ?? 'null' }}) {
+ var pusher = new Pusher('{{ env('MIX_PUSHER_APP_KEY') }}', {
+  cluster: '{{ env('MIX_PUSHER_APP_CLUSTER') }}'
+});
+
+var channel = pusher.subscribe('public');
+channel.bind('MessageSent', function(e) {
+
+
+  if (e.sender_id !== {{ auth()->id() }} ) {
             const messagesDiv = document.getElementById('messages');
             const messageElement = document.createElement('div');
             messageElement.classList.add('d-flex', 'flex-row', 'mb-4');
             messageElement.innerHTML = `
                 <div class="p-3 ms-3 border rounded" style="background-color: rgba(57, 192, 237, .2);">
-                    <p class="small mb-0">${e.message.message}</p>
+                    <p class="small mb-0">${e.message}</p>
                   
                 </div>
             `;
             messagesDiv.appendChild(messageElement);
         }
-    });
+});
+// Echo.channel('public')
+//     .listen('MessageSent', (data) => {
+   
+//      console.log(data)
+        // if (e.message.sender_id !== {{ auth()->id() }} && e.message.receiver_id === {{ $receiver->id ?? 'null' }}) {
+            // const messagesDiv = document.getElementById('messages');
+            // const messageElement = document.createElement('div');
+            // messageElement.classList.add('d-flex', 'flex-row', 'mb-4');
+            // messageElement.innerHTML = `
+            //     <div class="p-3 ms-3 border rounded" style="background-color: rgba(57, 192, 237, .2);">
+            //         <p class="small mb-0">${e.message.message}</p>
+                  
+            //     </div>
+            // `;
+            // messagesDiv.appendChild(messageElement);
+        // }
+    // });
 </script>
 @endsection
