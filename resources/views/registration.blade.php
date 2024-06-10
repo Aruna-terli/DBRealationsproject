@@ -8,6 +8,7 @@
     <div class="reg">
        
         <div class="reg_form">
+        <a href="{{route('login')}}" style="float:right;margin:5% 5%;font-size:22px">back</a>
           <h2>Registration</h2>
           <div class="col-md-5">
               @if(Session::has('success'))
@@ -53,7 +54,7 @@
                          <lable  style="font-size:20px"> Password : </lable>
                           <span style="color :red">*</span>
              
-                          <input type= "password"  name ="password" placeholder="enter  desire password" size = "25" required><br>
+                          <input type= "password"  name ="password" placeholder="enter password" size = "25" required><br>
                           @if ($errors->has('password'))
                             <span style="color:red">{{ $errors->first('password') }}</span>
                             @endif
@@ -61,12 +62,12 @@
                    <div class="column1">
                        <lable class="gender">Choose your Gender</lable>
                         <div class="gen_details">
-                            <input type="radio" id= "male" name="gender" value="male" checked>
-                            <lable for="male" class="male">Male</lable>
-                            <input type="radio" id = "female" name="gender" value="female">
-                            <lable for="female" class="female">Female</lable>
-                            <input type="radio"  id ="others" name="gender" value="others">
-                            <lable for="others" class="others">Others</lable><br>
+                        <input type="radio" id="male" name="gender" value="male" {{ old('gender') == 'male' ? 'checked' : '' }}>
+                                <label for="male" class="male">Male</label>
+                                <input type="radio" id="female" name="gender" value="female" {{ old('gender') == 'female' ? 'checked' : '' }}>
+                                <label for="female" class="female">Female</label>
+                                <input type="radio" id="others" name="gender" value="others" {{ old('gender') == 'others' ? 'checked' : '' }}>
+                                <label for="others" class="others">Others</label><br>
                             
 
                         </div>
@@ -101,19 +102,19 @@
                <lable class="gender">Role :</lable>
                 <span style="color:red">*</span>
                 <select name="role" id="role">
-                   <option value="">select your Role</option>
-                   <option  value="1">Client</option>
-                    <option  value="2">Empolyee</option>
+                <option value="">Select your Role</option>
+                <option value="1" {{ old('role') == '1' ? 'selected' : '' }}>Client</option>
+                <option value="2" {{ old('role') == '2' ? 'selected' : '' }}>Employee</option>
                 </select><br>
                 @if ($errors->has('role'))
                             <span style="color:red">{{ $errors->first('role') }}</span>
                             @endif
               </div>
               <div class="column2">
-              <lable style="font-size:20px" >Conform Password: </lable>
+              <lable style="font-size:20px" >Confirm Password: </lable>
                        <span style="color :red">*</span>
              
-                      <input type= "password"  name ="re_password" placeholder="conform your password " size = "25"><br>
+                      <input type= "password"  name ="re_password" placeholder="confirm your password " size = "25"><br>
                       @if ($errors->has('re_password'))
                             <span style="color:red">{{ $errors->first('re_password') }}</span>
                             @endif

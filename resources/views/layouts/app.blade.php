@@ -24,8 +24,8 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-color shadow-sm" >
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                  welcome to Work Space 
+                <a class="navbar-brand" href="">
+                  Welcome to Work Space 
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -64,6 +64,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                  
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -85,8 +86,8 @@
             @yield('content')
         </main>
     </div>
-    <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
-    <script src="{{ asset('js/app.js') }}"></script>
+    <!-- <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+    <script src="{{ asset('js/app.js') }}"></script> -->
     @yield('scripts')
 </body>
 </html>

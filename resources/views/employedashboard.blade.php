@@ -14,12 +14,17 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    <h4>your login in succesfully! welcome<h4> 
+                    @if(Session::has('success'))
+                <div class="alert alert-success">{{Session::get('success')}}</div>
+              @endif   
+              @if(Session::has('fail'))
+             <div class="alert alert-danger">{{Session::get('fail')}}</div>
+              @endif
+                  
                     <div style="float:left;width:50%">
                        <div class="project-box">
                         
-                       <h2>projects</h2>
+                       <h2>profile</h2>
                        <a style="color:white"href="{{route('employes.show',['employe' => $id])}}">view and edit your profile</a>
                        
                        </div> 

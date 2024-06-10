@@ -67,16 +67,16 @@ class LoginController extends Controller
         
             if(\Auth::user()->role == 3)
             {
-             return redirect()->route('home');
+             return redirect()->route('home')->with('success','your login in succesfully! welcome');
             }
             if(\Auth::user()->role == 2)
             {
-                return redirect()->route('employedashboard');
+                return redirect()->route('employedashboard')->with('success','your login in succesfully! welcome');
             }
             if(\Auth::user()->role == 1)
             {
                
-             return redirect()->route('clientdashboard');
+             return redirect()->route('clientdashboard')->with('success','your login in succesfully! welcome');
             }
              
         }

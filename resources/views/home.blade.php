@@ -13,7 +13,15 @@
                         {{ session('status') }}
                     </div>
                     @endif
-                    <h4>your login in successfully! welcome<h4>
+                    <div class="col-md-5 mt-5">
+              @if(Session::has('success'))
+                <div class="alert alert-success">{{Session::get('success')}}</div>
+              @endif   
+              @if(Session::has('fail'))
+             <div class="alert alert-danger"  style="margin-left:30px">{{Session::get('fail')}}</div>
+              @endif  
+         </div>
+                  
                     <div class="content-container">
                         <div class="project-box">
                         <h2>projects </h2>
