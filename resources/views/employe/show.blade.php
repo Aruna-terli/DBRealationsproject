@@ -2,7 +2,13 @@
 <link rel="stylesheet" type="text/css" href="{{URL::to('css/registration.css')}}">
 @section('content')
 
-<a style="font-size:25px" href="{{route('employedashboard')}}">back</a>
+@if (auth()->user()->role == 2)
+    <a style="font-size:25px" href="{{ route('employedashboard') }}">back</a>
+@elseif (auth()->user()->role == 1)
+    <a style="font-size:25px" href="{{ route('clientdashboard') }}">back</a>
+@else
+    <a style="font-size:25px" href="{{ route('home') }}">back</a>
+@endif
                @if(Session::has('success'))
                     <div class="alert alert-success">{{Session::get('success')}}</div>
                 @endif   
