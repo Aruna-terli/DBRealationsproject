@@ -145,10 +145,7 @@ class clientcontroller extends Controller
                 return redirect()->route('clients.show', ['client' => $id])->with('success', 'Welcome! Successfully updated.');
 
             }
-            elseif(auth()->user()->role == '3')
-            {
-                return redirect()->To('employes.index')->with('success',"welcome! ,successfully updated ");
-            }
+            
             else{
                 return redirect()->To('clients')->with('success',"welcome! ,successfully updated ");
             }

@@ -16,7 +16,7 @@
 @elseif (auth()->user()->role == 1)
     <a style="font-size:25px" href="{{ route('clientdashboard') }}">back</a>
 @else
-    <a style="font-size:25px" href="{{ route('home') }}">back</a>
+    <a style="font-size:25px" href="{{ route('employes.index') }}">back</a>
 @endif
         <div class="row" style="padding-left:35px">    
           <h2>Update Employe</h2>
