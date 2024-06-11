@@ -29,7 +29,7 @@ class EmployeController extends Controller
      */
     public function create()
     {
-        return view('employes/create');
+        return view('employe.create');
     }
 
     /**
@@ -43,7 +43,7 @@ class EmployeController extends Controller
         $validation = $request->validate([
             
             'full_name'=>'required',
-            'email_id'=>'required|email|unique:user',
+            'email'=>'required|email|unique:users',
             'phone_no'=>'required|digits:10',
             'password'=>'required|min:6|regex:/^(?=.*[a-zA-Z])(?=.*\d).+$/|required_with:re_password|same:re_password',
             're_password'=>'min:6|required',
@@ -57,7 +57,7 @@ class EmployeController extends Controller
        $user = new User;
      
         $user->name = $request['full_name'];
-        $user->email =$request['email_id'];
+        $user->email =$request['email'];
         $user->phone_no= $request['phone_no'];
         $user->password = Hash::make($request['password']);
        
@@ -111,21 +111,22 @@ class EmployeController extends Controller
      */
     public function update(Request $request, $id)
     {
+       
         $validation = $request->validate([
           
             'full_name'=>'required',
-            'email_id'=>'required|email|unique:user',
+            // 'email'=>'required|email|unique:users',
             'phone_no'=>'required|digits:10',
             'gender'=>'required',
          ]);
-     
+    
        $user =  User::find($id);
        
         $user->name = $request['full_name'];
-        $user->email =$request['email_id'];
+        // $user->email =$request['email'];
         $user->phone_no= $request['phone_no'];
         $user->gender = $request['gender'];
-       
+     
         $user->update();
         if($user)
         {
@@ -159,11 +160,17 @@ class EmployeController extends Controller
        
         if($employe)
         {
+            if(auth()->user()->role==3)
+            {
+                return redirect()->To('employes')->with('success','successfully! deleted  Your employee');
+            }
+            else{
+                return redirect()->To('clients')->with('success','successfully! deleted  Your employee');
+            }
             
-            return redirect()->To('clients')->with('success','successfully! deleted  Your project');
         }
         else{
-            return redirect()->back()->with('fail','sorry! your project   was not deleted please try again ');
+            return redirect()->back()->with('fail','sorry! your employe   was not deleted please try again ');
         }
     
     }

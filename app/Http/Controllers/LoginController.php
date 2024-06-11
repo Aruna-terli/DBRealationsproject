@@ -47,7 +47,7 @@ class LoginController extends Controller
         
         if ($user) {
            
-            return redirect()->to('login')->with('success', "Welcome! You have successfully registered with us.");
+            return redirect()->route('login')->with('success', "Welcome! You have successfully registered with us.");
         } else {
             return redirect()->back()->with('fail', 'Sorry, your registration was not completed. Please try again.');
         }

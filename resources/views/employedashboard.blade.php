@@ -1,8 +1,8 @@
 @extends('layouts.app')
  <link rel="stylesheet" type="text/css" href="{{URL::to('css/style.css')}}">
 @section('content')
-<div class="container"  >
-    <div class="row justify-content-center" >
+
+    <div class="row justify-content-center" style="padding:0% 10%" >
         <div class="col-md-12">
             
             <div class="card" >
@@ -41,5 +41,5 @@
             </div>
         </div>
     </div>
-</div>
+
 @endsection

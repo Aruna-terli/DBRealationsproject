@@ -50,7 +50,7 @@ class clientcontroller extends Controller
         $validation = $request->validate([
             
             'full_name'=>'required',
-            'email_id'=>'required|email|unique:user',
+            'email'=>'required|email|unique:users',
             'phone_no'=>'required|digits:10',
             'password'=>'required|min:6|regex:/^(?=.*[a-zA-Z])(?=.*\d).+$/|required_with:re_password|same:re_password',
             're_password'=>'min:6|required',
@@ -64,7 +64,7 @@ class clientcontroller extends Controller
        $user = new User;
       
         $user->name = $request['full_name'];
-        $user->email =$request['email_id'];
+        $user->email =$request['email'];
         $user->phone_no= $request['phone_no'];
         $user->password = Hash::make($request['password']);
        
@@ -125,7 +125,7 @@ class clientcontroller extends Controller
         $validation = $request->validate([
             
             'full_name'=>'required',
-            'email_id'=>'required|email|unique:user',
+            // 'email_id'=>'required|email|unique:user',
             'phone_no'=>'required|digits:10',
             'gender'=>'required',
          ]);
@@ -133,7 +133,7 @@ class clientcontroller extends Controller
        $user =  User::find($id);
        
         $user->name = $request['full_name'];
-        $user->email =$request['email_id'];
+        // $user->email =$request['email_id'];
         $user->phone_no= $request['phone_no'];
         $user->gender = $request['gender'];
        
@@ -144,6 +144,10 @@ class clientcontroller extends Controller
             {
                 return redirect()->route('clients.show', ['client' => $id])->with('success', 'Welcome! Successfully updated.');
 
+            }
+            elseif(auth()->user()->role == '3')
+            {
+                return redirect()->To('employes.index')->with('success',"welcome! ,successfully updated ");
             }
             else{
                 return redirect()->To('clients')->with('success',"welcome! ,successfully updated ");
@@ -170,13 +174,13 @@ class clientcontroller extends Controller
         $client->destroy($id);
         if($client)
         {
-            return redirect()->To('clients')->with('success','successfully! deleted  Your project');
+            return redirect()->To('clients')->with('success','successfully! deleted  Your client');
         }
         else{
-            return redirect()->back()->with('fail','sorry! your project   was not deleted please try again ');
+            return redirect()->back()->with('fail','sorry! your client was not deleted please try again ');
         }
     }
-    public function assignEmployeview()
+    public function assignEmployeview($employe_id)
 
     {
       
@@ -188,7 +192,7 @@ class clientcontroller extends Controller
         $project = $client[0]->clientProjects;
         
       
-        return view('clients.hire')->with(['employes' => $employes, 'projects' => $project]);
+        return view('clients.hire')->with(['employes' => $employes,'employe_id'=>$employe_id, 'projects' => $project]);
 
     }
     public function assignEmploye(Request $request)
@@ -199,7 +203,7 @@ class clientcontroller extends Controller
            
          ]);
   
-         $projects = Projects::where('id',$request['project_id'])->update(['user_id'=>$request['employe_id']]);
+        
          $user = User::where('id', $request['employe_id'])->first();
        
         if ($user) {
@@ -207,7 +211,7 @@ class clientcontroller extends Controller
          }
           
 
-         if($projects && $user){
+         if($user){
             return redirect()->To('employes')->with('success','successfully! hired this employe to  Your project');
          }
          else{

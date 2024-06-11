@@ -8,9 +8,16 @@
   @method('PUT')
 
     <div class="reg">
+
        
         <div class="reg_form">
-        <a style=" padding-left:40px;padding-top:30px;font-size:25px" href="{{route('employedashboard')}}">back</a>
+        @if (auth()->user()->role == 2)
+    <a style="font-size:25px" href="{{ route('employedashboard') }}">back</a>
+@elseif (auth()->user()->role == 1)
+    <a style="font-size:25px" href="{{ route('clientdashboard') }}">back</a>
+@else
+    <a style="font-size:25px" href="{{ route('home') }}">back</a>
+@endif
         <div class="row" style="padding-left:35px">    
           <h2>Update Employe</h2>
             <div class="col-md-5">
@@ -43,15 +50,14 @@
                             <span style="color:red">{{ $errors->first('full_name') }}</span>
                             @endif
               </div>
-             <div >
-                 <lable  style="font-size:20px"> Email  ID : </lable>
-                  <span style="color :red">*</span>
-      
-                 <input type= "text"  style="width:70%;margin-left:7%" name ="email_id" placeholder="enter your email id " size = "25" value="{{$employe[0]->email}}" required autocomplete="email_id" autofocus><br>
-                   @if ($errors->has('email_id'))
-                     <span style="color:red">{{ $errors->first('email_id') }}</span>
-                     @endif
-             </div>
+              <div>
+                            <label style="font-size:20px">Email ID:</label>
+                            <span style="color:red">*</span>
+                            <input type="text" style="width:70%;margin-left:7%" name="email" placeholder="Enter your email ID" size="25" value="{{$employe[0]->email}}" readonly required autocomplete="email" autofocus><br>
+                            @if ($errors->has('email'))
+                                <span style="color:red">{{ $errors->first('email') }}</span>
+                            @endif
+                        </div>
              <div class="column2">
               <lable style="font-size:20px" >Phone Number : </lable>
                        <span style="color :red">*</span>

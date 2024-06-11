@@ -26,25 +26,22 @@
          </div>
          <div class="row"> 
                <div class="left">
-                  <div>
-                    
-                           <lable  style="font-size:20px"> UserId : </lable>
-                           <span style="color :red">*</span>
+               <div class="column2">
+              <lable style="font-size:20px" >FullName : </lable>
+                       <span style="color :red">*</span>
              
-                           <input type= "text"  name ="user_id" placeholder="enter your user id " size = "25" value="{{ old('user_id') }}" required autocomplete="user_id" autofocus><br>
-                     
-                            @if ($errors->has('user_id'))
-                            <span style="color:red">{{ $errors->first('user_id') }}</span>
+                      <input type= "text"  name ="full_name" placeholder="enter your full name " size = "25"value="{{ old('full_name') }}" required autocomplete="full_name" autofocus><br>
+                      @if ($errors->has('full_name'))
+                            <span style="color:red">{{ $errors->first('full_name') }}</span>
                             @endif
-                    
-                   </div>
+              </div>
                     <div >
                         <lable  style="font-size:20px"> Email  ID : </lable>
                          <span style="color :red">*</span>
              
-                        <input type= "text"  name ="email_id" placeholder="enter your email id " size = "25" value="{{ old('email_id') }}" required autocomplete="email_id" autofocus><br>
-                          @if ($errors->has('email_id'))
-                            <span style="color:red">{{ $errors->first('email_id') }}</span>
+                        <input type= "text"  name ="email" placeholder="enter your email id " size = "25" value="{{ old('email') }}" required autocomplete="email" autofocus><br>
+                          @if ($errors->has('email'))
+                            <span style="color:red">{{ $errors->first('email') }}</span>
                             @endif
                     </div>
                     <div class="column1">
@@ -56,7 +53,24 @@
                             <span style="color:red">{{ $errors->first('password') }}</span>
                             @endif
                     </div>
-                   <div class="column1">
+                  
+                    </div>
+                </div>
+</div>
+
+<div class="right">
+              
+              
+              <div class="column2">
+              <lable style="font-size:20px" >Phone Number : </lable>
+                       <span style="color :red">*</span>
+             
+                      <input type= "text"  name ="phone_no" placeholder="enter your phone number " size = "25" value="{{ old('phone_no') }}" required autocomplete="phone_no" autofocus><br>
+                      @if ($errors->has('phone_no'))
+                         <span style="color:red">{{ $errors->first('phone_no') }}</span>
+                        @endif
+              </div>
+              <div class="column2">
                        <lable class="gender">Choose your Gender</lable>
                         <div class="gen_details">
                             <input type="radio" id= "male" name="gender" value="male" checked>
@@ -69,30 +83,6 @@
 
                         </div>
                         
-                    </div>
-                </div>
-</div>
-
-<div class="right">
-              <div class="column2">
-              <lable style="font-size:20px" >FullName : </lable>
-                       <span style="color :red">*</span>
-             
-                      <input type= "text"  name ="full_name" placeholder="enter your full name " size = "25"value="{{ old('full_name') }}" required autocomplete="full_name" autofocus><br>
-                      @if ($errors->has('full_name'))
-                            <span style="color:red">{{ $errors->first('full_name') }}</span>
-                            @endif
-              </div>
-              
-              <div class="column2">
-              <lable style="font-size:20px" >Phone Number : </lable>
-                       <span style="color :red">*</span>
-             
-                      <input type= "text"  name ="phone_no" placeholder="enter your phone number " size = "25" value="{{ old('phone_no') }}" required autocomplete="phone_no" autofocus><br>
-                      @if ($errors->has('phone_no'))
-                         <span style="color:red">{{ $errors->first('phone_no') }}</span>
-                        @endif
-              </div>
               <div class="column2">
               <lable style="font-size:20px" >Conform Password: </lable>
                        <span style="color :red">*</span>

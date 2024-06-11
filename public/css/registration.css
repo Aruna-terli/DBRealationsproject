@@ -107,7 +107,7 @@ input[type="radio"]
 #customers th {
   padding-top: 12px;
   padding-bottom: 12px;
-  padding-right:200px;
+  padding-right:130px;
   text-align: left;
   background-color: #82808c;
   color: white;
@@ -120,7 +120,7 @@ input[type="radio"]
   margin:4% 2%;
 }
 
-#clients td, #customers th {
+#clients td {
   border: 1px solid #ddd;
   padding: 10px;
 }
@@ -130,9 +130,9 @@ input[type="radio"]
 #clients tr:hover {background-color: #ddd;}
 
 #clients th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  padding-right:160px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-right:100px;
   text-align: left;
   background-color: #82808c;
   color: white;

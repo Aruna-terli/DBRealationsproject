@@ -8,7 +8,7 @@
 @else
     <a style="font-size:25px" href="{{ route('home') }}">back</a>
 @endif
-<a style="font-size:25px;float:right;margin-right:4%"href="{{route('clients.create')}}">Register new client</a>
+<a style="font-size:20px;float:right;margin-right:4%"href="{{route('clients.create')}}">Register new client</a>
                @if(Session::has('success'))
                     <div class="alert alert-success">{{Session::get('success')}}</div>
                 @endif   

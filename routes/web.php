@@ -24,7 +24,7 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/home', [App\Http\Controllers\LoginController::class, 'admindashboard'])->name('home');
 Route::get('/clientdashboard', [App\Http\Controllers\LoginController::class, 'clientdashboard'])->name('clientdashboard');
 Route::get('/employedashboard', [App\Http\Controllers\LoginController::class, 'employedashboard'])->name('employedashboard');   
-Route::get('/assignEmployeview',[App\Http\Controllers\clientController::class,'assignEmployeview'])->name('assignEmployeview');
+Route::get('/assignEmployeview/{id}',[App\Http\Controllers\clientController::class,'assignEmployeview'])->name('assignEmployeview');
 Route::post('/assignEmploye',[App\Http\Controllers\clientController::class,'assignEmploye'])->name('assignEmploye');
 Route::get('/project_buy/{id}',[App\Http\Controllers\paymentController::class, 'index'])->name('project_buy');
 Route::resource('projects', 'App\Http\Controllers\projectController');
@@ -57,7 +57,8 @@ Route::get('/remove_user/{id}/{user_id}', 'App\Http\Controllers\GroupController@
 
 //Auth::routes();
 Auth::routes(
-             ['register' => false
+             ['register' => false,
+             'login'=>false
         ]);
 
 

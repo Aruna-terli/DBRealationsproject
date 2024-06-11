@@ -29,7 +29,7 @@
               <label style="font-size: 20px">Select Employee:</label>
                         <select name="employe_id" >
                             @foreach($employes as $employe)
-                                <option value="{{ $employe->id }}" >{{ $employe->name }}</option>
+                                <option value="{{ $employe->id }}" {{ $employe->id == $employe_id ? 'selected' : '' }} >{{ $employe->name }}</option>
                             @endforeach
                         </select><br>
 

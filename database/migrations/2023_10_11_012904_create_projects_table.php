@@ -15,9 +15,11 @@ class CreateProjectsTable extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
             $table->string('project_name');
+            $table->enum('project_type',['e-commernce','health','gaming','LMS','others']);
+            $table->text('description');
             $table->integer('Amount');
+            $table->string('payment_status');
             $table->timestamps();
           
         });

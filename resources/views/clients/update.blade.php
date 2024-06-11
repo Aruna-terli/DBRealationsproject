@@ -54,7 +54,7 @@
                  <lable  style="font-size:20px"> Email  ID : </lable>
                   <span style="color :red">*</span>
       
-                 <input type= "text"  style="width:70%;margin-left:7%" name ="email_id" placeholder="enter your email id " size = "25" value="{{$client[0]->email}}" required autocomplete="email_id" autofocus><br>
+                 <input type= "text"  style="width:70%;margin-left:7%" name ="email_id" placeholder="enter your email id " size = "25" value="{{$client[0]->email}}"readonly required autocomplete="email_id" autofocus><br>
                    @if ($errors->has('email_id'))
                      <span style="color:red">{{ $errors->first('email_id') }}</span>
                      @endif

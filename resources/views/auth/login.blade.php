@@ -4,8 +4,10 @@
   <link rel="stylesheet" type="text/css" href="{{URL::to('css/style.css')}}">
 </head>
 <body>
+<form method ="post" action="{{route('signup')}}">  
+  @csrf <!-- {{ csrf_field() }} -->
+  <div class="container">
 
-<form method="POST" action="{{ route('signup') }}">
  @csrf
     <div class="container">
       
@@ -40,7 +42,7 @@
                    <a href="{{route('register')}}"  style="color:red">Sign Up</a>
                
                
-                 <a href="#" class="forgot_pass">Forgot Password</a>
+                 <!-- <a href="#" class="forgot_pass">Forgot Password</a> -->
                
            </div>
        </div>

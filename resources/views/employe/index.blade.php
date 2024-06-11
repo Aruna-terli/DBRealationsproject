@@ -1,7 +1,15 @@
 @extends('layouts.app')
 <link rel="stylesheet" type="text/css" href="{{URL::to('css/registration.css')}}">
 @section('content')
-<a style="font-size:25px;float:left;margin-left:2%" href="{{route('clientdashboard')}}">back</a>
+
+@if (auth()->user()->role == 2)
+    <a style="font-size:25px" href="{{ route('employedashboard') }}">back</a>
+@elseif (auth()->user()->role == 1)
+    <a style="font-size:25px" href="{{ route('clientdashboard') }}">back</a>
+@else
+    <a style="font-size:25px" href="{{ route('home') }}">back</a>
+    <a style="font-size:20px;float:right;margin-right:4%"href="{{route('employes.create')}}">Register new Employee</a>
+@endif
 
 <!-- <a style="font-size:25px;float:right;margin-right:4%"href="{{route('clients.create')}}">Register new client</a> -->
                @if(Session::has('success'))
@@ -39,8 +47,20 @@
         </td>
         
                <td>
-                <a href="{{route('assignEmployeview')}}" style="float:left;width:50%" >assign project</a>
-</td>
+                @if(auth()->user()->role == 1)
+                <a href="{{route('assignEmployeview',$employe['id'])}}" style="float:left;width:50%" >assign project</a>
+                @elseif (auth()->user()->role == 3)
+                <a href="{{route('employes.edit',$employe['id'])}}" style="float:left;width:50%" >Update </a>
+                     @if($employe->employeeProjects->isEmpty())
+                        <form action="{{route('employes.destroy',$employe['id'])}}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" style="float:right;width:50%" value=delete>delete</button>
+                        </form>  
+                     @endif
+
+                @endif
+              </td>
                <!-- <form action="{{route('employes.destroy',$employe['id'])}}" method="post">
                                     @csrf
                                     @method('DELETE')

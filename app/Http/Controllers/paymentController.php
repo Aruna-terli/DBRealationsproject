@@ -16,9 +16,10 @@ class paymentController extends Controller
     public function index($id)
     {
        // $projects=projects::all();
+      
        $paid_projects = Payment::with('paid_clients')->where('user_id','!=',$id)->get();
        
-     
+  
         $projects = projects::with('clients')->where('payment_status','!=',1)->get();
 
         
@@ -61,7 +62,7 @@ class paymentController extends Controller
  
                 $project = Projects::where('id',$response['notes']['product_id'])
                 ->where('project_name', $response['notes']['product_name'])
-                ->update(['payment_status' => 1,'user_id'=> $response['notes']['user_id']]);
+                ->update(['payment_status' => 1]);
               if($user)
               {
                 $user = $user->clientProjects()->attach($response['notes']['product_id'], ['role_id' => 1]);

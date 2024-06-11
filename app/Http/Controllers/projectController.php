@@ -52,13 +52,13 @@ class projectController extends Controller
             'description'  =>'required|max:2000',
         ]);
         $project =new projects;
-        $project['user_id'] = null;
+       
         $project['project_name'] = $request['project_name'];
         $project['Amount'] = $request['price'];
         $project['project_type'] = $request['project_type'];
         $project['description'] = $request['description'];
         $project['payment_status'] = '0';
-        $project['employe_id'] = '0';
+        
       
         $project->save();
         $request->session()->flash('success', 'Successfully registered your project');

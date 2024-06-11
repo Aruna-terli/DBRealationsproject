@@ -17,7 +17,7 @@
               <h1>WELCOME TO WORK PLACE</h1>
               <div class="col-md-5 mt-5">
               @if(Session::has('success'))
-                <div class="alert alert-success">{{Session::get('success')}}</div>
+                <div class="alert alert-success" style="margin-left:30px">{{Session::get('success')}}</div>
               @endif   
               @if(Session::has('fail'))
              <div class="alert alert-danger"  style="margin-left:30px">{{Session::get('fail')}}</div>

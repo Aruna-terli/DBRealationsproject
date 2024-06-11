@@ -14,6 +14,7 @@ class CreateClientProjectTable extends Migration
     public function up()
     {
         Schema::create('user_project', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('project_id');
             $table->unsignedBigInteger('role_id'); // Add the role_id column
