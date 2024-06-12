@@ -24,10 +24,20 @@
   <div class="col-md-3">
       <input type="text" id="userSearch" class="form-control mb-3" placeholder="Search users...">
       <div class="list-group" id="userList" style="max-height: 400px; overflow-y: auto;">
+     
         @foreach($users as $user)
-          <a href="{{ route('chat', ['user_id' => $user->id]) }}" class="list-group-item list-group-item-action">
-            {{ $user->name }}
+       
+
+          <a href="{{ route('chat', ['user_id' => $user->id,'user_name'=>$user->name]) }}" class="list-group-item list-group-item-action">
+            
+          @if(@$user->count != 0)
+          {{ $user->name }} <b style="background-color:red">{{$user->count}}</b>
+          @else 
+          {{ $user->name }}
+          @endif
+         
           </a>
+         
         @endforeach
       </div>
     </div>
@@ -52,7 +62,12 @@
               <div class="card" id="chat1" style="border-radius: 15px; margin-top: 20px;">
                 <div class="card-header d-flex justify-content-between align-items-center p-3 bg-info text-white border-bottom-0"
                   style="border-top-left-radius: 15px; border-top-right-radius: 15px;">
+                
+                  @if($user_name)
+                  <b>{{$user_name}}</b>
+                  @else
                   <p class="mb-0 fw-bold">Live chat</p>
+                  @endif
                 </div>
                 <div class="card-body" style="height: 400px; overflow-y: scroll;">
                   <div id="messages">

@@ -8,12 +8,14 @@ use App\Models\User;
 use App\Models\Message;
 use App\Models\Group;
 use App\Models\GroupMessages;
+use Illuminate\Support\Facades\DB;
 
 class ChatController extends Controller
 {
   public function index(Request $request)
   {
     $user_id = $request->user_id;
+   $user_name = @$request->user_name;
       $receiver = User::find($user_id);
       $messages = $receiver ? Message::where(function ($query) use ($user_id) {
           $query->where('sender_id', auth()->id())
@@ -22,11 +24,57 @@ class ChatController extends Controller
           $query->where('sender_id', $user_id)
                 ->orWhere('receiver_id', $user_id);
       })->get() : collect();
+    
+ 
 
-      $users = User::where('id', '!=', auth()->id())->get();
+      if ($receiver) {
+          $update_unread = Message::where('sender_id', $user_id)
+                                  ->where('is_read','0')
+                                  ->update(['is_read' => '1']);
+      
+       
+       
+      }
+   
+  //   $message_count =  Message::where(function ($query)  {
+  //     $query->where('receiver_id', auth()->id())->where('is_read','=','0');
+    
+  // })->count();
+  //   $sender_id = Message::where('is_read','=','0')->select('sender_id')->get();
+
+
+$sender_ids = Message::where('is_read', '0')
+                     ->where('receiver_id', auth()->id())
+                     ->select('sender_id')
+                     ->get()
+                     ->pluck('sender_id')
+                     ->unique();
+ $users = User::where('id', '!=', auth()->id())->get();
+
+ foreach ($sender_ids as $sender_id) {
+        foreach($users as $key=>$user)
+                      {
+                     
+                      if($user->id == $sender_id)
+                      {
+                      $user->count = Message::where('is_read', '0')
+                             ->where('receiver_id', auth()->id())
+                             ->where('sender_id', $sender_id)
+                           
+                            ->count();
+
+                             break;  
+                      }
+                      else {
+                        $user->count = 0;
+                      }
+                     }
+                    }
+             
+    
       $groups = Group::get();
       
-      return view('chatting.index', compact('messages', 'users', 'receiver','groups'));
+      return view('chatting.index', compact('messages','users', 'receiver','groups','user_name'));
   }
     // public function fetchMessages($user_id)
     // {
@@ -50,6 +98,7 @@ class ChatController extends Controller
       $message['receiver_id' ]= $request->receiver_id;
       $message['sender_id'] = auth()->id();
       $message['name'] = auth()->user()->name;
+     
 
       $newMessage = Message::create([
         
@@ -57,6 +106,7 @@ class ChatController extends Controller
           
          'receiver_id' => $message['receiver_id'],
           'message' => $message['message'],
+          'is_read'=>0,
       ]);
       broadcast(new MessageSent($message))->toOthers();
 
