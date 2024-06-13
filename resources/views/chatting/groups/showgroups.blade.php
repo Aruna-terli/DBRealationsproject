@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<link rel="stylesheet" type="text/css" href="{{ URL::to('css/chat.css') }}">
+<!-- <link rel="stylesheet" type="text/css" href="{{ URL::to('css/chat.css') }}"> -->
 
     <a style="font-size:25px" href="{{ route('chat') }}">back</a>
 
@@ -89,7 +89,7 @@ document.getElementById('groupList').addEventListener('click', function (event) 
 document.getElementById('sendMessage').addEventListener('click', function () {
     const message = document.getElementById('textAreaExample').value;
     const group_id = document.getElementById('group_id').value;
-    conat group_name = document.getElementById('group_name').value
+    const group_name = document.getElementById('group_name').value
     
 
    
@@ -104,7 +104,7 @@ document.getElementById('sendMessage').addEventListener('click', function () {
         body: JSON.stringify({ 
             message: message, 
             group_id: group_id,
-            group_name = group_name,
+            group_name :group_name,
             name: '{{ auth()->user()->name }}' 
         })
     }).then(response => {

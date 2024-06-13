@@ -24,16 +24,16 @@
                   
                     <div class="content-container">
                         <div class="project-box">
-                        <h2>projects </h2>
-                       <a style="color:white"href="{{route('projects.index')}}">project operations</a>
+                        <h2>Projects </h2>
+                       <a style="color:white"href="{{route('projects.index')}}">Project operations</a>
                         </div>
                         <div class="project-box">
                         <h2>Clients</h2>
                        <a style="color:white"href="{{route('clients.index')}}">Clients operations</a>
                         </div>
                         <div class="project-box">
-                        <h2> projects</h2>
-                       <a style="color:white"href="{{route('projects_sold')}}">sold projects details</a>
+                        <h2> Projects</h2>
+                       <a style="color:white"href="{{route('projects_sold')}}">Sold projects details</a>
                        
                         </div>
                         <div class="project-box">
