@@ -79,8 +79,8 @@ class paymentController extends Controller
     }
     
     public function sold_projects(){
-        $projects = projects::with('clients')->get();
-      
+        $projects = projects::with('clients')->where('payment_status',1)->get();
+
         return view('projects/sold')->with('projects',$projects);
     }
 }
