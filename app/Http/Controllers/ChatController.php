@@ -120,6 +120,31 @@ $sender_ids = Message::where('is_read', '0')
       $group_name = $request->group_name;
       $users = User::where('id', '!=', auth()->id())->get();
       $groups = Group::get();
+      $group_messages =  GroupMessages::get();
+    
+      foreach ($groups as $group){
+        $i= 0;
+        foreach($group_messages as $message)
+        { 
+          
+         if($message->group_id == $group->id && $message->is_read == "0")
+          {
+           
+            $i = $i+1;
+           
+          }
+        
+        }
+       $group->count = $i;
+      }
+      if ($group_id) {
+        $update_unread = GroupMessages::where('group_id', $group_id)
+                                ->where('is_read','0')
+                                ->update(['is_read' => '1']);
+    
+     
+     
+    }
       $messages = GroupMessages::where('group_id', $group_id)->orderBy('created_at', 'asc')->get();
       
       return view('chatting/groups/showgroups', compact('messages', 'users','groups','group_id','group_name'));

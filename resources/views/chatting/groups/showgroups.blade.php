@@ -20,8 +20,13 @@
       <div class="list-group" id="groupList" style="max-height: 400px; overflow-y: auto;">
         @foreach($groups as $group)
           <a href="{{ route('group.show', ['group_id' => $group->id,'group_name'=>$group->name]) }}" class="list-group-item list-group-item-action" data-group-id="{{ $group->id }}" data-group-name="{{$group->name}}">
+            @if(@$group->count != 0)
+            {{ $group->name }} <b style="background-color:red">{{$group->count}}</b>
+            @else 
             {{ $group->name }}
-          </a>
+            @endif
+           
+            </a>
         @endforeach
       </div>
     </div>
