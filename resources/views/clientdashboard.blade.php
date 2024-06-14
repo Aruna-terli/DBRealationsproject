@@ -22,16 +22,16 @@
                   
                     <div class="content-container">
                         <div class="project-box">
-                            <h2>Projects</h2>
+                            <h3>Projects</h3>
                             <a style="color:white" href="{{ route('project_buy', ['id' => $id]) }}">Buy Projects</a>
                         </div>
                         <div class="project-box">
-                            <h2>Clients</h2>
+                            <h3>Clients</h3>
                             <a style="color:white" href="{{ route('clients.show', ['client' => $id]) }}">Clients crud operations</a>
                         </div>
                         <div class="project-box">
-                            <h2>Employes</h2>
-                            <a style="color:white" href="{{ route('employes.index') }}">Hire employes!</a>
+                            <h3>Employees</h3>
+                            <a style="color:white" href="{{ route('employes.index') }}">Hire employees!</a>
                         </div>
                     </div>
                 </div>

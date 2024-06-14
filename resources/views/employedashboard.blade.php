@@ -6,7 +6,7 @@
         <div class="col-md-12">
             
             <div class="card" >
-                <div class="card-header " style="color:white;background-color: #3e3a3a;">Employe Dasboard</div>
+                <div class="card-header " style="color:white;background-color: #3e3a3a;">Employee Dasboard</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -24,7 +24,7 @@
                     <div style="float:left;width:50%">
                        <div class="project-box">
                         
-                       <h2>profile</h2>
+                       <h2>Profile</h2>
                        <a style="color:white"href="{{route('employes.show',['employe' => $id])}}">view and edit your profile</a>
                        
                        </div> 
@@ -32,7 +32,7 @@
                    <div style="float:right;width:50%">
                        <div class="project-box">
                         
-                       <h2>projects</h2>
+                       <h2>Projects</h2>
                        <a style="color:white"href="{{route('employeprojects',['id' => $id])}}">Your projects and Team</a>
                        
                        </div> 
