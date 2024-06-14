@@ -14,10 +14,10 @@ class GroupController extends Controller
         $this->middleware('auth');
 
         //some functions can only be executed by group admin/owner
-        $this->middleware('owner')->only(['edit', 'update', 'delete', 'remove_user']);
+        $this->middleware('owner')->only(['edit', 'update','join_form', 'deleteGroup', 'remove_user']);
 
         //the group will only be accessed by a member  message
-        $this->middleware('member')->only('show');
+        $this->middleware('member')->only('members_list');
     }
 
     //display form to create a group //-- show create Group Page
