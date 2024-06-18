@@ -16,7 +16,9 @@ class GroupOwner
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function handle(Request $request, Closure $next)
-    {   $group = Group::find($request->group_id);
+    {   
+        
+        $group = Group::find($request->id);
         
         if ($group->admin_id == auth()->user()->id)
         {

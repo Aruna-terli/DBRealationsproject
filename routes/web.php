@@ -44,7 +44,7 @@ Route::post('sendGroupMessage',[App\Http\Controllers\ChatController::class,'send
 Route::get('/group/show', 'App\Http\Controllers\ChatController@show')->name('group.show');
 Route::get('/group/create', 'App\Http\Controllers\GroupController@create_form')->name('group.create');
 Route::post('/group/create', 'App\Http\Controllers\GroupController@create');
-Route::get('/group/join/{group_id}', 'App\Http\Controllers\GroupController@join_form')->name('group.join');
+Route::get('/group/join/{id}', 'App\Http\Controllers\GroupController@join_form')->name('group.join');
 Route::post('/group/join', 'App\Http\Controllers\GroupController@join');
 Route::get('/group/edit/{id}', 'App\Http\Controllers\GroupController@edit')->name('group.edit');
 Route::post('/group/update/{id}', 'App\Http\Controllers\GroupController@update');

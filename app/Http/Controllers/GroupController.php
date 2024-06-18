@@ -53,9 +53,9 @@ class GroupController extends Controller
    
 
     //display the form to join a group
-    public function join_form($group_id)
+    public function join_form($id)
     {  
-        $group = Group::where('id', '=', $group_id)->get();
+        $group = Group::where('id', '=', $id)->get();
         $users = User::where('id', '!=', auth()->id())->get();
         
         return view('/chatting/groups/join')->with(['group'=>$group,'users'=>$users]);
@@ -80,7 +80,7 @@ class GroupController extends Controller
             {
                 //we add the user to the group and we redirect him to the home page with a success message
                 $group->participants()->attach($request->user_id);
-                return redirect()->route('group.join', ['group_id' => $group->id])->with('success', 'User joined group successfully');
+                return redirect()->route('group.join', ['id' => $group->id])->with('success', 'User joined group successfully');
 
             } 
             catch (\Throwable $th) 
@@ -105,7 +105,7 @@ class GroupController extends Controller
 
     //change the name of the group
     public function update(Request $request, $id)
-    {
+    { 
         $this->validate($request, [
             'name' => 'required'
         ]);
@@ -113,7 +113,7 @@ class GroupController extends Controller
         $group->name = $request->name;
         $group->save();
         
-        return redirect()->route('group.join', ['group_id' => $group->id])->with('success', 'Group name has been changed successfully!');
+        return redirect()->route('group.join', ['id' => $group->id])->with('success', 'Group name has been changed successfully!');
         
     }
 
@@ -134,7 +134,7 @@ class GroupController extends Controller
         $group = Group::find($id);
         $group_members = $group->participants()->get();
         $group_id = $id;
-
+           
         return view('/chatting/groups/showusers', compact(['group_members', 'group_id']));
     }
 

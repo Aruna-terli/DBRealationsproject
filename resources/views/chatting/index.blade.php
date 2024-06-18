@@ -54,7 +54,7 @@
               <div id="userDropdown" class="dropdown-content" style="display: none; margin-top: 10px;">
               @foreach($groups as $user)
                 <li >
-                  <a  href="{{ route('group.join', ['group_id' => $user->id]) }}" data-user-id="{{ $user->id }}">{{ $user->name }}</a>
+                  <a  href="{{ route('group.join', ['id' => $user->id]) }}" data-user-id="{{ $user->id }}">{{ $user->name }}</a>
                 </li>
                 @endforeach
               </div>
