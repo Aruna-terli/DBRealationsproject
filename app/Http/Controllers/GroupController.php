@@ -40,7 +40,7 @@ class GroupController extends Controller
         $group = Group::create([
             'name' => $request->name,
             'code' => $code,
-            'admin_id' => auth()->user()->id,
+            'user_id' => auth()->user()->id,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);

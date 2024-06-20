@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateClientProjectTable extends Migration
+class CreateUserProjectTable extends Migration
 {
     /**
      * Run the migrations.
@@ -17,12 +17,14 @@ class CreateClientProjectTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('project_id');
-            $table->unsignedBigInteger('role_id'); // Add the role_id column
+         
+          
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
-            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
+
+           
         });
     }
 
@@ -33,6 +35,6 @@ class CreateClientProjectTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('client_project');
+        Schema::dropIfExists('user_project');
     }
 }

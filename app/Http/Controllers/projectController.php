@@ -16,7 +16,7 @@ class projectController extends Controller
     public function index()
     {
         
-        $projects =  Projects::with('clients')->with('employees')->get();
+        $projects =  Projects::with('clients')->get();
 
         
        return  view('projects/index')->with(['projects'=>$projects]);
@@ -53,11 +53,11 @@ class projectController extends Controller
         ]);
         $project =new projects;
        
-        $project['project_name'] = $request['project_name'];
-        $project['Amount'] = $request['price'];
-        $project['project_type'] = $request['project_type'];
+        $project['name'] = $request['project_name'];
+        $project['amount'] = $request['price'];
+        $project['type'] = $request['project_type'];
         $project['description'] = $request['description'];
-        $project['payment_status'] = '0';
+        $project['status'] = '1';
         
       
         $project->save();
@@ -119,9 +119,9 @@ class projectController extends Controller
             'description'  =>'required|max:2000',
         ]);
         $project = projects::find($id);
-        $project['project_name'] = $request['project_name'];
-        $project['Amount'] = $request['price'];
-        $project['project_type'] = $request['project_type'];
+        $project['name'] = $request['project_name'];
+        $project['amount'] = $request['price'];
+        $project['type'] = $request['project_type'];
         $project['description'] = $request['description'];
        
         $project->update();

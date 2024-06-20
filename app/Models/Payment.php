@@ -16,4 +16,9 @@ class Payment extends Model
     {
         return $this->HasMany(Projects::class, 'id', 'project_id');
     }
+    // public function sold_project()
+    // {
+    //     return $this->belongsTo(Payment::class,'project_id','id');
+    // }
+    
 }

@@ -17,9 +17,9 @@ class CreateGroupsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('code')->unique();
-            $table->unsignedBigInteger('admin_id');
+            $table->unsignedBigInteger('user_id');
 
-            $table->foreign('admin_id')
+            $table->foreign('user_id')
                     ->references('id')
                     ->on('users')
                     ->onDelete('cascade');

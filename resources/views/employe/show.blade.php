@@ -33,9 +33,9 @@
                <td>{{$employe['gender']}}</td>
               
                <td>
-            @if(!empty($employe->employeeProjects))
-                @foreach($employe->employeeProjects as $project)
-                    {{$project->project_name}}
+            @if(!empty($employe->clientProjects))
+                @foreach($employe->clientProjects as $project)
+                    {{$project->name}}
                    
                     <br> <!-- Add a line break for each project -->
                 @endforeach

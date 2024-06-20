@@ -21,13 +21,13 @@
             </tr>
             @foreach($projects as $project)
                <tr>
-               <td>{{$project['project_name']}}</td>
-               <td>{{$project['project_type']}}</td>
+               <td>{{$project['name']}}</td>
+               <td>{{$project['type']}}</td>
                <td>{{$project['description']}}</td>
                
                <td>
-            @if(!empty($project->employees))
-                @foreach($project->employees as $user)
+            @if(!empty($project->clients))
+                @foreach($project->clients as $user)
                 @if($user->role == '1')
                     {{$user->name}} <br>
                  @endif   

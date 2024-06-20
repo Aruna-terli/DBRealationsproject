@@ -34,9 +34,9 @@ class ProjectControllerTest extends TestCase
         // $projectData = Projects::factory()->make()->toArray();
         $data = [
             
-            'project_name' => 'test project'.mt_rand(100, 999),
+            'name' => 'test project'.mt_rand(100, 999),
             'price' => '1000',
-            'project_type' => 'others',
+            'type' => 'others',
             'description' => 'test project',
           
         ];
@@ -47,7 +47,7 @@ class ProjectControllerTest extends TestCase
         $response->assertStatus(302);// Assuming successful redirect
           
 
-        $this->assertDatabaseHas('projects', ['project_name' => $data['project_name']]);
+        $this->assertDatabaseHas('projects', ['name' => $data['name']]);
     }
 
     public function test_can_update_project()
@@ -56,9 +56,9 @@ class ProjectControllerTest extends TestCase
         $project = Projects::factory()->create();
 
         $updatedData = [
-            'project_name' => 'Updated Project Name',
+            'name' => 'Updated Project Name',
             'price' => 999,
-            'project_type' => 'others',
+            'type' => 'others',
             'description' => 'Updated Project Description',
         ];
 
@@ -66,7 +66,7 @@ class ProjectControllerTest extends TestCase
 
         $response->assertStatus(302); // Assuming successful redirect;
 
-        $this->assertDatabaseHas('projects', ['project_name' => 'Updated Project Name']);
+        $this->assertDatabaseHas('projects', ['name' => 'Updated Project Name']);
     }
 
     public function test_can_delete_project()

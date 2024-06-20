@@ -8,6 +8,7 @@
     <div class="reg">
        
         <div class="reg_form">
+          
         <a href="{{route('login')}}" style="float:right;margin:5% 5%;font-size:22px">back</a>
           <h2>Registration</h2>
           <div class="col-md-5">
@@ -36,7 +37,7 @@
               <lable style="font-size:20px" >FullName : </lable>
                        <span style="color :red">*</span>
              
-                      <input type= "text"  name ="full_name" placeholder="enter your full name " size = "25"value="{{ old('full_name') }}" required autocomplete="full_name" autofocus><br>
+                      <input type= "text"  name ="full_name" placeholder="Enter your full name " size = "25"value="{{ old('full_name') }}" required autocomplete="full_name" autofocus><br>
                       @if ($errors->has('full_name'))
                             <span style="color:red">{{ $errors->first('full_name') }}</span>
                             @endif
@@ -45,7 +46,7 @@
                     <lable  style="font-size:20px"> Email  ID : </lable>
                          <span style="color :red">*</span>
              
-                        <input type= "text"  name ="email" placeholder="enter your email id " size = "25" value="{{ old('email') }}" required autocomplete="email" autofocus><br>
+                        <input type= "text"  name ="email" placeholder="Enter your email id " size = "25" value="{{ old('email') }}" required ><br>
                           @if ($errors->has('email'))
                             <span style="color:red">{{ $errors->first('email') }}</span>
                             @endif
@@ -54,7 +55,7 @@
                          <lable  style="font-size:20px"> Password : </lable>
                           <span style="color :red">*</span>
              
-                          <input type= "password"  name ="password" placeholder="enter password" size = "25" required><br>
+                          <input type= "password"  name ="password" placeholder="Enter password" size = "25" required><br>
                           @if ($errors->has('password'))
                             <span style="color:red">{{ $errors->first('password') }}</span>
                             @endif
@@ -91,7 +92,7 @@
               <lable style="font-size:20px" >Phone Number : </lable>
                        <span style="color :red">*</span>
              
-                      <input type= "text"  name ="phone_no" placeholder="enter your phone number " size = "25" value="{{ old('phone_no') }}" required autocomplete="phone_no" autofocus><br>
+                      <input type= "text"  name ="phone_no" placeholder="Enter your phone number " size = "25" value="{{ old('phone_no') }}" required autocomplete="phone_no" autofocus><br>
                       @if ($errors->has('phone_no'))
                          <span style="color:red">{{ $errors->first('phone_no') }}</span>
                         @endif
@@ -114,7 +115,7 @@
               <lable style="font-size:20px" >Confirm Password: </lable>
                        <span style="color :red">*</span>
              
-                      <input type= "password"  name ="re_password" placeholder="confirm your password " size = "25"><br>
+                      <input type= "password"  name ="re_password" placeholder="Confirm your password " size = "25"><br>
                       @if ($errors->has('re_password'))
                             <span style="color:red">{{ $errors->first('re_password') }}</span>
                             @endif

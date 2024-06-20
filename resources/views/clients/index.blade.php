@@ -35,7 +35,7 @@
                <td>
             @if(!empty($client->clientProjects))
                 @foreach($client->clientProjects as $project)
-                    {{$project->project_name}}
+                    {{$project->name}}
                     <br> <!-- Add a line break for each project -->
                 @endforeach
             @else

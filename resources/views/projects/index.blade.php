@@ -22,9 +22,9 @@
             </tr>
             @foreach($projects as $key => $project)
                <tr>
-               <td>{{$project['project_name']}}</td>
-               <td>{{$project['project_type']}}</td>
-               <td>{{$project['Amount']}}</td>
+               <td>{{$project['name']}}</td>
+               <td>{{$project['type']}}</td>
+               <td>{{$project['amount']}}</td>
                <td>
             @if(!empty($project->clients))
                 @foreach($project->clients as $user)
@@ -38,8 +38,8 @@
             @endif
         </td>
         <td>
-            @if(!empty($project->employees))
-                @foreach($project->employees as $user)
+            @if(!empty($project->clients))
+                @foreach($project->clients as $user)
                 @if($user->role == 2)
                     {{$user->name}} <br>
                     @endif
@@ -50,14 +50,14 @@
             @endif
         </td>
                <td>
-                @if($project['payment_status'] == '1')
-                 {{ 'sold' }}
+                @if($project['status'] == '1')
+                 {{ 'Active' }}
                  @else
-                 {{ 'not sold' }}
+                 {{ 'InActive' }}
                  @endif
                </td>
                <td><a href="{{route('projects.edit',$project['id'])}}">update</a>
-               @if($project['payment_status'] == '1')
+               @if($project['status'] == '1')
                 
                  @else
                  <form action="{{ route('projects.destroy', $project['id'] ) }}" method="post">

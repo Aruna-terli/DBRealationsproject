@@ -17,7 +17,7 @@ class EmployeController extends Controller
     {
         $employes = User::select("*")->where('role','=',2)
 
-        ->with('employeeProjects')->get();
+        ->with('clientProjects')->get();
        
           return view('employe.index')->with('employes',$employes);
     }
@@ -82,7 +82,7 @@ class EmployeController extends Controller
      */
     public function show($id)
     {
-        $employe = User::where( "id" ,"=",$id)->with('employeeProjects')->get();
+        $employe = User::where( "id" ,"=",$id)->with('clientProjects')->get();
      
       
         return view('employe/show')->with('employes',$employe);
@@ -175,16 +175,16 @@ class EmployeController extends Controller
     
     }
     public function employeprojects($id){
-        $employee = User::where('id', $id)->with('employeeProjects')->get();
+        $employee = User::where('id', $id)->with('clientProjects')->get();
         $projectIds = [];
         
         foreach ($employee as $employe) {
-            foreach ($employe->employeeProjects as $project) {
+            foreach ($employe->clientProjects as $project) {
                 $projectIds[] = [$project->id]; // Collect project IDs in the array
             }
         }
      
-      $projects = Projects::whereIn('id',$projectIds)->with('employees')->get();
+      $projects = Projects::whereIn('id',$projectIds)->with('clients')->get();
    
     
         return view('employe/employeprojects')->with(['projects'=> $projects, 'employee' => $employee]);

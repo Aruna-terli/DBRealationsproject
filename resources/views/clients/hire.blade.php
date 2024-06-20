@@ -37,7 +37,7 @@
                         <label style="font-size: 20px">Select Project:</label>
                         <select name="project_id">
                             @foreach($projects as $project)
-                                <option value="{{ $project->id }}">{{ $project->project_name }}</option>
+                                <option value="{{ $project->id }}">{{ $project->name }}</option>
                             @endforeach
                         </select>
                     </div>

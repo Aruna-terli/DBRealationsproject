@@ -36,9 +36,9 @@
                <td>{{$employe['gender']}}</td>
               
                <td>
-            @if(!empty($employe->employeeProjects))
-                @foreach($employe->employeeProjects as $project)
-                    {{$project->project_name}}
+            @if(!empty($employe->clientProjects))
+                @foreach($employe->clientProjects as $project)
+                    {{$project->name}}
                     <br> 
                 @endforeach
             @else
@@ -51,7 +51,7 @@
                 <a href="{{route('assignEmployeview',$employe['id'])}}" style="float:left;width:50%" >assign project</a>
                 @elseif (auth()->user()->role == 3)
                 <a href="{{route('employes.edit',$employe['id'])}}" style="float:left;width:50%" >Update </a>
-                     @if($employe->employeeProjects->isEmpty())
+                     @if($employe->clientProjects->isEmpty())
                         <form action="{{route('employes.destroy',$employe['id'])}}" method="post">
                                     @csrf
                                     @method('DELETE')

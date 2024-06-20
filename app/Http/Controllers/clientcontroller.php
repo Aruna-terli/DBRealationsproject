@@ -204,7 +204,7 @@ class clientcontroller extends Controller
          $user = User::where('id', $request['employe_id'])->first();
        
         if ($user) {
-            $user->clientProjects()->attach($request['project_id'], ['role_id' => 2]);
+            $user->clientProjects()->attach($request['project_id']);
          }
           
 

@@ -12,7 +12,7 @@ class group extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\Models\User', 'admin_id');
+        return $this->belongsTo('App\Models\User', 'user_id');
     }
 
     public function participants()

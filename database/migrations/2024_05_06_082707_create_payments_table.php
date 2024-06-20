@@ -15,16 +15,16 @@ class CreatePaymentsTable extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('r_payment_id');
+            $table->string('razor_pay_payment_id');
             $table->string('method');
             $table->string('currency');
-            $table->string('user_email');
+            
             $table->integer('user_id');
             $table->integer('project_id');
             // $table->enum('project_type',['e-commernce','health','gaming','LMS','others'])->nullable();
-            $table->string('project_name');
-            $table->string('amount');
-            $table->longText('json_response');
+           
+            $table->string('amount'); 
+            $table->longText('data');
             $table->timestamps();
         });
     }

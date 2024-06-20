@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 use App\Models\projects;
 use App\Models\User;
 use App\Events\PaymentSuccessfull;
@@ -17,12 +18,12 @@ class paymentController extends Controller
     {
        // $projects=projects::all();
       
-       $paid_projects = Payment::with('paid_clients')->where('user_id','!=',$id)->get();
-       
-  
-        $projects = projects::with('clients')->where('payment_status','!=',1)->get();
-
+       $paid_projects = Payment::where('user_id','!=',$id)->join('projects', 'projects.id', '=', 'payments.project_id')->get();
+     
+       $projects = projects::with('clients')->where('status','=',1)->get();
         
+
+     
         return view("payment/project_details")->with(['projects'=>  $projects,'paid_projects'=>$paid_projects,'user_id'=>$id]);
        
     }
@@ -46,26 +47,25 @@ class paymentController extends Controller
             try {
                 $response = $api->payment->fetch($input['razorpay_payment_id'])->capture(array('amount' => $payment['amount']));
                 $payment = Payment::create([
-                    'r_payment_id' => $response['id'],
+                    'razor_pay_payment_id' => $response['id'],
                     'method' => $response['method'],
                     'currency' => $response['currency'],
-                    'user_email' => $response['notes']['email'],
-                    'project_name'=>$response['notes']['product_name'],
-                    'project_id'=>$response['notes']['product_id'],
+                   'project_id'=>$response['notes']['product_id'],
                     'amount' => $response['amount']/100,
-                    'json_response' => json_encode((array)$response),
+                    'data' => json_encode((array)$response),
                     'user_id'=>$response['notes']['user_id']
 
                 ]);
                 event(new PaymentSuccessfull($response));
                 $user = User::where('email', $response['notes']['email'])->first();
  
-                $project = Projects::where('id',$response['notes']['product_id'])
-                ->where('project_name', $response['notes']['product_name'])
-                ->update(['payment_status' => 1]);
+                // $project = Projects::where('id',$response['notes']['product_id'])
+                // ->where('project_name', $response['notes']['product_name'])
+                // ->update(['payment_status' => 1]);
               if($user)
               {
-                $user = $user->clientProjects()->attach($response['notes']['product_id'], ['role_id' => 1]);
+                $user = $user->clientProjects()->attach($response['notes']['product_id']);
+                
               }
                
             } catch(Exceptio $e) {
@@ -79,8 +79,28 @@ class paymentController extends Controller
     }
     
     public function sold_projects(){
-        $projects = projects::with('clients')->where('payment_status',1)->get();
+       
+        $projects =   Projects::with('clients')->get();
+     
+     foreach ($projects as $project) {
+    $clients = [];
+    $employees = [];
+    $i = 0;
 
+    foreach ($project->clients as $client) {
+        if ($client->pivot->user_id != null) {
+            $clients[$i] = User::where('id', $client->pivot->user_id)->where('role', 1)->get();
+            $employees[$i] = User::where('id', $client->pivot->user_id)->where('role', 2)->get();
+            $i++;
+        }
+    }
+
+    // Assign the temporary arrays to the project object
+    $project->clients_data = $clients;
+    $project->employees_data = $employees;
+}
+    
+     
         return view('projects/sold')->with('projects',$projects);
     }
 }

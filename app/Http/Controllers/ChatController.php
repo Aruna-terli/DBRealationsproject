@@ -171,7 +171,7 @@ $sender_ids = Message::where('is_read', '0')
           'user_id' => auth()->id(),
           'group_id'=>$message['receiver_id'],
           'name'=> $message['name'],
-          'from'=>auth()->user()->name,
+        
           'is_read'=>0,
         
           'message' => $message['message'],

@@ -20,7 +20,7 @@ class GroupOwner
         
         $group = Group::find($request->id);
         
-        if ($group->admin_id == auth()->user()->id)
+        if ($group->user_id == auth()->user()->id)
         {
             return $next($request);
         }

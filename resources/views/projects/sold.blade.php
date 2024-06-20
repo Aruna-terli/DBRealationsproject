@@ -21,16 +21,16 @@
             </tr>
             @foreach($projects as $project)
                <tr>
-               <td>{{$project['project_name']}}</td>
-               <td>{{$project['project_type']}}</td>
-               <td>{{$project['Amount']}}</td>
-               
+               <td>{{$project['name']}}</td>
+               <td>{{$project['type']}}</td>
+               <td>{{$project['amount']}}</td>
+             
                <td>
             @if(!empty($project->clients))
                 @foreach($project->clients as $user)
-                @if($user->role == '1')
+                 @if($user->role==1)
                     {{$user->name}} <br>
-                 @endif   
+               @endif
                     
                 @endforeach
             @else
@@ -39,15 +39,16 @@
         </td>
         <td>
             @if(!empty($project->clients))
-                @foreach($project->clients as $user)
-                @if($user->role == '2')
-                    {{$user->name}} <br>
-                    @endif
-                    
-                    
-                @endforeach
-            @else
+            @foreach($project->clients as $user)
+          
+               @if($user->role ==2)
                 
+               {{$user->name}} <br>
+
+              @endif           
+             
+           
+            @endforeach
             @endif
         </td>
                                 

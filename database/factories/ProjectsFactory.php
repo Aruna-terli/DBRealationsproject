@@ -16,14 +16,12 @@ class ProjectsFactory extends Factory
     public function definition()
     {
         return [
-            'project_name' => $this->faker->sentence(3),
-            'Amount' => $this->faker->randomFloat(2, 100, 1000),
-            'project_type' => $this->faker->randomElement(['e-commernce','health','gaming','LMS','others']),
+            'name' => $this->faker->sentence(3),
+            'amount' => $this->faker->randomFloat(2, 100, 1000),
+            'type' => $this->faker->randomElement(['e-commernce','health','gaming','LMS','others']),
             'description' => $this->faker->paragraph(2),
-            'payment_status' => '0',
-            'employe_id' => '0',
-            'user_id' => '0',
-           
+            'status' => '0',
+  
         ];
 
         

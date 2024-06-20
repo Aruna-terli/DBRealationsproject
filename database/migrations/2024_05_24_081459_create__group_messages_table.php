@@ -17,7 +17,6 @@ class CreateGroupMessagesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('group_id');
-            $table->string('from');
             $table->string('name');
             $table->string('is_read');
             $table->longText('message');

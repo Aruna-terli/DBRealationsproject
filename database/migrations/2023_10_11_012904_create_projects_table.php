@@ -15,11 +15,11 @@ class CreateProjectsTable extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->string('project_name');
-            $table->enum('project_type',['e-commernce','health','gaming','LMS','others']);
+            $table->string('name');
+            $table->enum('type',['e-commernce','health','gaming','LMS','others']);
             $table->text('description');
-            $table->integer('Amount');
-            $table->string('payment_status');
+            $table->float('amount');
+            $table->integer('status');
             $table->timestamps();
           
         });
