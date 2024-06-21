@@ -9,6 +9,8 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Projects;
 use App\Models\Role;
+use App\Enums\UserRoleEnum;
+use App\Enums\GenderEnum;
 
 class User extends Authenticatable
 {
@@ -47,13 +49,13 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'gender'=>GenderEnum::class,
+        'role'=>UserRoleEnum::class,
+        
     ];
    
 
-    public function role()
-    {
-        return $this->belongsTo(Roles::class);
-    }
+  
     public function clientProjects()
 {
     return $this->belongsToMany(Projects::class, 'user_project', 'user_id', 'project_id');

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Role;
+use App\Enums\StatusEnum;
 
 class projects extends Model
 {
@@ -18,6 +19,11 @@ class projects extends Model
         // 'Amount',
         // 'project_type',
         // 'description'
+        
+    ];
+    protected $casts = [
+      
+        'status'=>StatusEnum::class,
         
     ];
     public function clients()

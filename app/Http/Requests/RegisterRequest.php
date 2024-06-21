@@ -4,6 +4,9 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\Models\User;
+use App\Enums\UserRoleEnum;
+use App\Enums\GenderEnum;
+use Illuminate\Validation\Rule;
 
 class RegisterRequest extends FormRequest
 {
@@ -27,9 +30,9 @@ class RegisterRequest extends FormRequest
         return [
             'full_name' => 'required',
              'email' => 'required|email|unique:users',
-            'gender' => 'required',
+            'gender' => ['required', Rule::in(GenderEnum::getValues())],
             'phone_no' => 'required|digits:10',
-            'role' => 'required',
+            'role' => ['required', Rule::in(UserRoleEnum::getValues())],
             'password' => 'required|min:6|required_with:re_password|same:re_password',
             're_password' => 'required|min:6',
             

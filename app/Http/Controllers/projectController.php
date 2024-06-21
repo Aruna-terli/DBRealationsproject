@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\projects;
+use App\Enums\StatusEnum;
 
 
 class projectController extends Controller
@@ -57,7 +58,7 @@ class projectController extends Controller
         $project['amount'] = $request['price'];
         $project['type'] = $request['project_type'];
         $project['description'] = $request['description'];
-        $project['status'] = '1';
+        $project['status'] = StatusEnum::Active;
         
       
         $project->save();

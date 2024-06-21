@@ -2,10 +2,11 @@
 <link rel="stylesheet" type="text/css" href="{{URL::to('css/registration.css')}}">
 @section('content')
 
-@if (auth()->user()->role == 2)
+@if (auth()->user()->role->value == 2)
     <a style="font-size:25px" href="{{ route('employedashboard') }}">back</a>
-@elseif (auth()->user()->role == 1)
+@elseif (auth()->user()->role->value == 1)
     <a style="font-size:25px" href="{{ route('clientdashboard') }}">back</a>
+    <a style="font-size:20px;float:right;margin-right:4%"href="{{route('employes.create')}}">Register new Employee</a>
 @else
     <a style="font-size:25px" href="{{ route('home') }}">back</a>
     <a style="font-size:20px;float:right;margin-right:4%"href="{{route('employes.create')}}">Register new Employee</a>
@@ -47,9 +48,9 @@
         </td>
         
                <td>
-                @if(auth()->user()->role == 1)
+                @if(auth()->user()->role->value == 1)
                 <a href="{{route('assignEmployeview',$employe['id'])}}" style="float:left;width:50%" >assign project</a>
-                @elseif (auth()->user()->role == 3)
+                @elseif (auth()->user()->role->value == 3)
                 <a href="{{route('employes.edit',$employe['id'])}}" style="float:left;width:50%" >Update </a>
                      @if($employe->clientProjects->isEmpty())
                         <form action="{{route('employes.destroy',$employe['id'])}}" method="post">

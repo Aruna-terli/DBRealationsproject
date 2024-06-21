@@ -131,7 +131,7 @@ class EmployeController extends Controller
         if($user)
         {
            
-            if(auth()->user()->role == '2')
+            if(auth()->user()->role->value == '2')
             {
                 return redirect()->route('employes.show', ['employe' => $id])->with('success', 'Welcome! Successfully updated.');
 
@@ -160,7 +160,7 @@ class EmployeController extends Controller
        
         if($employe)
         {
-            if(auth()->user()->role==3)
+            if(auth()->user()->role->value==3)
             {
                 return redirect()->To('employes')->with('success','successfully! deleted  Your employee');
             }

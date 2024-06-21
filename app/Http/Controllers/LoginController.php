@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\RegisterRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use App\Enums\UserRoleEnum;
 
 class LoginController extends Controller
 {
@@ -42,7 +43,7 @@ class LoginController extends Controller
         $user->password = Hash::make($request['password']);
         $user->gender = $request['gender'];
         $user->role = $request['role']; 
-        
+      
         $user->save();
         
         if ($user) {
@@ -65,15 +66,15 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             // Authentication passed...
         
-            if(\Auth::user()->role == 3)
+            if(\Auth::user()->role->value === UserRoleEnum::Admin)
             {
              return redirect()->route('home')->with('success','your login in succesfully! welcome');
             }
-            if(\Auth::user()->role == 2)
+            if(\Auth::user()->role->value == UserRoleEnum::Employee)
             {
                 return redirect()->route('employedashboard')->with('success','your login in succesfully! welcome');
             }
-            if(\Auth::user()->role == 1)
+            if(\Auth::user()->role->value == UserRoleEnum::Client)
             {
                
              return redirect()->route('clientdashboard')->with('success','your login in succesfully! welcome');

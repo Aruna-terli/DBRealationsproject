@@ -11,9 +11,9 @@
 
        
         <div class="reg_form">
-        @if (auth()->user()->role == 2)
+        @if (auth()->user()->role->value == 2)
     <a style="font-size:25px" href="{{ route('employedashboard') }}">back</a>
-@elseif (auth()->user()->role == 1)
+@elseif (auth()->user()->role->value == 1)
     <a style="font-size:25px" href="{{ route('clientdashboard') }}">back</a>
 @else
     <a style="font-size:25px" href="{{ route('employes.index') }}">back</a>

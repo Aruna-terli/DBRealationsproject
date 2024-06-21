@@ -25,12 +25,12 @@ class HomeController extends Controller
     { 
         $a= \Auth::user()->email;
 
-       if(\Auth::user()->role == 3)
+       if(\Auth::user()->role->value == 3)
        {
         return view('home');
        }
        
-       if(\Auth::user()->role == 1)
+       if(\Auth::user()->role->value == 1)
        {
         return view('clientdashboard')->with('id',\Auth::user()->id);
        }

@@ -4,12 +4,12 @@
 </head>
 <body>
 <form method ="post" action="{{route('employes.store')}}">  
-@if (auth()->user()->role == 2)
+@if (auth()->user()->role->value == 2)
     <a style="font-size:25px" href="{{ route('employedashboard') }}">back</a>
-@elseif (auth()->user()->role == 1)
-    <a style="font-size:25px" href="{{ route('clientdashboard') }}">back</a>
+@elseif (auth()->user()->role->value == 1)
+    <a style="font-size:25px" href="{{ route('employes.index') }}">back</a>
 @else
-    <a style="font-size:25px" href="{{ route('home') }}">back</a>
+    <a style="font-size:25px" href="{{ route('employes.index') }}">back</a>
 @endif
   @csrf <!-- {{ csrf_field() }} -->
     <div class="reg">

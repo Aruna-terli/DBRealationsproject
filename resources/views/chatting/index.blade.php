@@ -4,9 +4,9 @@
 
 <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
 <script src="{{ asset('js/app.js') }}"></script>
-@if (auth()->user()->role == 2)
+@if (auth()->user()->role->value == 2)
     <a style="font-size:25px" href="{{ route('employedashboard') }}">back</a>
-@elseif (auth()->user()->role == 1)
+@elseif (auth()->user()->role->value == 1)
     <a style="font-size:25px" href="{{ route('clientdashboard') }}">back</a>
 @else
     <a style="font-size:25px" href="{{ route('home') }}">back</a>

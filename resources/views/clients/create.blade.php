@@ -3,9 +3,9 @@
   <link rel="stylesheet" type="text/css" href="{{URL::to('css/registration.css')}}">
 </head>
 <body>
-@if (auth()->user()->role == 2)
+@if (auth()->user()->role->value == 2)
     <a style="font-size:25px" href="{{ route('employedashboard') }}">back</a>
-@elseif (auth()->user()->role == 1)
+@elseif (auth()->user()->role->value == 1)
     <a style="font-size:25px" href="{{ route('clientdashboard') }}">back</a>
 @else
     <a style="font-size:25px" href="{{ route('home') }}">back</a>
