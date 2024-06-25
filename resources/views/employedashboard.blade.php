@@ -21,15 +21,8 @@
              <div class="alert alert-danger">{{Session::get('fail')}}</div>
               @endif
                   
-                    <div style="float:left;width:50%">
-                       <div class="project-box">
-                        
-                       <h2>Profile</h2>
-                       <a style="color:white"href="{{route('employes.show',['employe' => $id])}}">view and edit your profile</a>
-                       
-                       </div> 
-                   </div>
-                   <div style="float:right;width:50%">
+                  
+                   <div style="float:left;width:50%">
                        <div class="project-box">
                         
                        <h2>Projects</h2>
