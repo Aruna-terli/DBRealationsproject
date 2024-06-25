@@ -9,7 +9,9 @@
        
         <div class="reg_form">
           
-        <a href="{{route('login')}}" style="float:right;margin:5% 5%;font-size:22px">back</a>
+        <a href="{{route('login')}}" style="float:right;margin:5% 5%;font-size:20px">
+        <i class="fas fa-arrow-left"></i>
+        </a>
           <h2>Registration</h2>
           <div class="col-md-5">
               @if(Session::has('success'))

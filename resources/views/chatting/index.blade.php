@@ -5,11 +5,17 @@
 <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
 <script src="{{ asset('js/app.js') }}"></script>
 @if (auth()->user()->role->value == 2)
-    <a style="font-size:25px" href="{{ route('employedashboard') }}">back</a>
+    <a style="font-size:20px" href="{{ route('employedashboard') }}">
+    <i class="fas fa-arrow-left"></i>
+    </a>
 @elseif (auth()->user()->role->value == 1)
-    <a style="font-size:25px" href="{{ route('clientdashboard') }}">back</a>
+    <a style="font-size:20px" href="{{ route('clientdashboard') }}">
+    <i class="fas fa-arrow-left"></i>
+    </a>
 @else
-    <a style="font-size:25px" href="{{ route('home') }}">back</a>
+    <a style="font-size:20px" href="{{ route('home') }}">
+    <i class="fas fa-arrow-left"></i>
+    </a>
 @endif
 <div class="col-md-5">
               @if(Session::has('success'))

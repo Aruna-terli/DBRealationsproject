@@ -12,11 +12,17 @@
        
         <div class="reg_form">
         @if (auth()->user()->role->value == 2)
-    <a style="font-size:25px" href="{{ route('employedashboard') }}">back</a>
+    <a style="font-size:20px" href="{{ route('employedashboard') }}">
+    <i class="fas fa-arrow-left"></i>
+    </a>
 @elseif (auth()->user()->role->value == 1)
-    <a style="font-size:25px" href="{{ route('clientdashboard') }}">back</a>
+    <a style="font-size:20px" href="{{ route('clientdashboard') }}">
+    <i class="fas fa-arrow-left"></i>
+    </a>
 @else
-    <a style="font-size:25px" href="{{ route('employes.index') }}">back</a>
+    <a style="font-size:20px" href="{{ route('employes.index') }}">
+    <i class="fas fa-arrow-left"></i>
+    </a>
 @endif
         <div class="row" style="padding-left:35px">    
           <h2>Update Employe</h2>

@@ -5,7 +5,9 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
         <div class="d-flex justify-content-between mb-3">
-                <a style="font-size:25px" href="{{ route('chat') }}">Back</a>
+                <a style="font-size:20px" href="{{ route('chat') }}">
+                <i class="fas fa-arrow-left"></i>
+                </a>
                 <div>
                 <a class="btn btn-dark"  style="margin-right:10px"href="{{ route('users_in_group', ['id' => $group[0]->id]) }}">users in group</a> 
                    <a class="btn btn-dark"  style="margin-right:10px"href="{{ route('group.edit', ['id' => $group[0]->id]) }}">Update Group</a>

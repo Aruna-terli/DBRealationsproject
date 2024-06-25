@@ -11,7 +11,9 @@
     <div class="reg">
        
         <div class="reg_form">
-        <a href="{{route('projects.index')}}" style="float:right;margin:5% 5%;font-size:22px">back</a>
+        <a href="{{route('projects.index')}}" style="float:right;margin:5% 5%;font-size:20px">
+        <i class="fas fa-arrow-left"></i>
+        </a>
         <div class="row" style="padding-left:35px">    
           <h2>Register new project</h2>
             <div class="col-md-5">

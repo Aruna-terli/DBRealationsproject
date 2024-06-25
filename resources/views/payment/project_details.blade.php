@@ -1,7 +1,9 @@
 @extends('layouts.app')
 <link rel="stylesheet" type="text/css" href="{{ URL::to('css/registration.css') }}">
 @section('content')
-<a style="font-size:25px" href="{{ route('clientdashboard') }}">back</a>
+<a style="font-size:20px" href="{{ route('clientdashboard') }}">
+<i class="fas fa-arrow-left"></i>
+</a>
 
 @if(Session::has('success'))
     <div class="alert alert-success">{{ Session::get('success') }}</div>

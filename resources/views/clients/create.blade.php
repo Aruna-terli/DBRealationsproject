@@ -4,11 +4,17 @@
 </head>
 <body>
 @if (auth()->user()->role->value == 2)
-    <a style="font-size:25px" href="{{ route('employedashboard') }}">back</a>
+    <a style="font-size:20px" href="{{ route('employedashboard') }}">
+    <i class="fas fa-arrow-left"></i>
+    </a>
 @elseif (auth()->user()->role->value == 1)
-    <a style="font-size:25px" href="{{ route('clientdashboard') }}">back</a>
+    <a style="font-size:20px" href="{{ route('clientdashboard') }}">
+    <i class="fas fa-arrow-left"></i>
+    </a>
 @else
-    <a style="font-size:25px" href="{{ route('home') }}">back</a>
+    <a style="font-size:20px" href="{{ route('home') }}">
+    <i class="fas fa-arrow-left"></i>
+    </a>
 @endif
 <form method ="post" action="{{route('clients.store')}}">  
   @csrf <!-- {{ csrf_field() }} -->

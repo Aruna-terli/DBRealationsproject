@@ -3,11 +3,17 @@
 @section('content')
 
 @if (auth()->user()->role->value == 2)
-    <a style="font-size:25px" href="{{ route('employedashboard') }}">back</a>
+    <a style="font-size:20px" href="{{ route('employedashboard') }}">
+    <i class="fas fa-arrow-left"></i>
+    </a>
 @elseif (auth()->user()->role->value == 1)
-    <a style="font-size:25px" href="{{ route('clientdashboard') }}">back</a>
+    <a style="font-size:20px" href="{{ route('clientdashboard') }}">
+    <i class="fas fa-arrow-left"></i>
+    </a>
 @else
-    <a style="font-size:25px" href="{{ route('home') }}">back</a>
+    <a style="font-size:20px" href="{{ route('home') }}">
+    <i class="fas fa-arrow-left"></i>
+    </a>
 @endif
                @if(Session::has('success'))
                     <div class="alert alert-success">{{Session::get('success')}}</div>
@@ -43,7 +49,9 @@
                 No projects <!-- Display a message if no projects are found -->
             @endif
         </td>
-               <td><a href="{{route('employes.edit',$employe['id'])}}" style="float:left;width:50%" >update</a>
+               <td><a href="{{route('employes.edit',$employe['id'])}}" style="float:left;width:50%" title="Edit">
+               <i class="fas fa-edit"></i>
+               </a>
                                 
               </tr>
             @endforeach

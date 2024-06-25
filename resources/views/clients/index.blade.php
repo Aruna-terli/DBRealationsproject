@@ -2,11 +2,17 @@
 <link rel="stylesheet" type="text/css" href="{{URL::to('css/registration.css')}}">
 @section('content')
 @if (auth()->user()->role->value == 2)
-    <a style="font-size:25px" href="{{ route('employedashboard') }}">back</a>
+    <a style="font-size:20px" href="{{ route('employedashboard') }}">
+    <i class="fas fa-arrow-left"></i>
+    </a>
 @elseif (auth()->user()->role->value == 1)
-    <a style="font-size:25px" href="{{ route('clientdashboard') }}">back</a>
+    <a style="font-size:20px" href="{{ route('clientdashboard') }}">
+    <i class="fas fa-arrow-left"></i>
+    </a>
 @else
-    <a style="font-size:25px" href="{{ route('home') }}">back</a>
+    <a style="font-size:20px" href="{{ route('home') }}">
+    <i class="fas fa-arrow-left"></i>
+    </a>
 @endif
 <a style="font-size:20px;float:right;margin-right:4%"href="{{route('clients.create')}}">Register new client</a>
                @if(Session::has('success'))
@@ -42,11 +48,15 @@
                 No projects <!-- Display a message if no projects are found -->
             @endif
         </td>
-               <td><a href="{{route('clients.edit',$client['id'])}}" style="float:left;width:50%" >update</a>
+               <td><a href="{{route('clients.edit',$client['id'])}}" style="float:left;width:50%" title="Edit">
+               <i class="fas fa-edit"></i>
+               </a>
                <form action="{{route('clients.destroy',$client['id'])}}" method="post">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" style="float:right;width:50%" value=delete>delete</button>
+                                    <button type="submit" style="background:none;border:none;color:red;cursor:pointer;" title="Delete">
+                                    <i class="fas fa-trash"></i>
+                                </button>
                </form>                    
               </tr>
             @endforeach

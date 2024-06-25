@@ -3,7 +3,9 @@
 @section('content')
 <!-- <link rel="stylesheet" type="text/css" href="{{ URL::to('css/chat.css') }}"> -->
 
-    <a style="font-size:25px" href="{{ route('chat') }}">back</a>
+    <a style="font-size:20px" href="{{ route('chat') }}" title="Back">
+    <i class="fas fa-arrow-left"></i>
+    </a>
 
 <div class="col-md-5">
   @if(Session::has('success'))

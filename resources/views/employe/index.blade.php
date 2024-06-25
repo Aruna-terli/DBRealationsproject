@@ -1,18 +1,26 @@
 @extends('layouts.app')
 <link rel="stylesheet" type="text/css" href="{{URL::to('css/registration.css')}}">
+
+
 @section('content')
 
 @if (auth()->user()->role->value == 2)
-    <a style="font-size:25px" href="{{ route('employedashboard') }}">back</a>
+<a style="font-size:20px;padding-left:10px;" href="{{ route('employedashboard') }}">
+        <i class="fas fa-arrow-left"></i> 
+    </a>
 @elseif (auth()->user()->role->value == 1)
-    <a style="font-size:25px" href="{{ route('clientdashboard') }}">back</a>
+    <a style="font-size:20px;padding-left:10px;" href="{{ route('clientdashboard') }}">
+        <i class="fas fa-arrow-left"></i> 
+    </a>
     <a style="font-size:20px;float:right;margin-right:4%"href="{{route('employes.create')}}">Register new Employee</a>
 @else
-    <a style="font-size:25px" href="{{ route('home') }}">back</a>
+    <a style="font-size:20px" href="{{ route('home') }}" title="Back">
+    <i class="fas fa-arrow-left"></i>
+    </a>
     <a style="font-size:20px;float:right;margin-right:4%"href="{{route('employes.create')}}">Register new Employee</a>
 @endif
 
-<!-- <a style="font-size:25px;float:right;margin-right:4%"href="{{route('clients.create')}}">Register new client</a> -->
+<!-- <a style="font-size:20px;float:right;margin-right:4%"href="{{route('clients.create')}}">Register new client</a> -->
                @if(Session::has('success'))
                     <div class="alert alert-success">{{Session::get('success')}}</div>
                 @endif   
@@ -51,16 +59,24 @@
                     @endif
                 </td>
                 <td>
-                    @if(auth()->user()->role->value == 1)
-                        <a href="{{ route('assignEmployeview', $employe['id']) }}" style="float:left;width:50%">Assign Project</a>
-                        <a href="{{ route('unassignEmployeview', $employe['id']) }}"style="float:left;width:50%">Unassign Rroject</a>
+                @if(auth()->user()->role->value == 1)
+                        <a href="{{ route('assignEmployeview', $employe['id']) }}" style="float:left;width:50%" title="Assign Project">
+                            <i class="fas fa-plus"></i>
+                        </a>
+                        <a href="{{ route('unassignEmployeview', $employe['id']) }}" style="float:left;width:50%" title="Unassign Project">
+                            <i class="fas fa-minus"></i>
+                        </a>
                     @elseif (auth()->user()->role->value == 3)
-                        <a href="{{ route('employes.edit', $employe['id']) }}" style="float:left;width:50%">Update</a>
+                        <a href="{{ route('employes.edit', $employe['id']) }}" style="float:left;width:50%" title="Update">
+                            <i class="fas fa-edit"></i>
+                        </a>
                         @if($employe->clientProjects->isEmpty())
-                            <form action="{{ route('employes.destroy', $employe['id']) }}" method="post">
+                            <form action="{{ route('employes.destroy', $employe['id']) }}" method="post" style="float:right;width:50%">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" style="float:right;width:50%">Delete</button>
+                                <button type="submit" style="background:none;border:none;color:red;cursor:pointer;" title="Delete">
+                                    <i class="fas fa-trash"></i>
+                                </button>
                             </form>  
                         @endif
                     @endif

@@ -10,7 +10,9 @@
     <div class="reg">
        
         <div class="reg_form">
-        <a href="{{route('projects.index')}}" style="float:right;margin:5% 5%;font-size:22px">back</a>
+        <a href="{{route('projects.index')}}" style="float:right;margin:5% 5%;font-size:20px" title="Back">
+        <i class="fas fa-arrow-left"></i>
+        </a>
         <div class="row" style="padding-left:35px">    
           <h2>Update project</h2>
             <div class="col-md-5">

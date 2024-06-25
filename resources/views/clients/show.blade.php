@@ -1,7 +1,9 @@
 @extends('layouts.app')
 <link rel="stylesheet" type="text/css" href="{{URL::to('css/registration.css')}}">
 @section('content')
-<a style="font-size:25px;float:left;margin-left:2%" href="{{route('clientdashboard')}}">back</a>
+<a style="font-size:20px;float:left;margin-left:2%" href="{{route('clientdashboard')}}">
+<i class="fas fa-arrow-left"></i>
+</a>
 
                @if(Session::has('success'))
                     <div class="alert alert-success">{{Session::get('success')}}</div>
@@ -37,7 +39,9 @@
                 No projects
             @endif
         </td>
-               <td><a href="{{route('clients.edit',$client['id'])}}" style="float:left;width:50%" >update</a>
+               <td><a href="{{route('clients.edit',$client['id'])}}" style="float:left;width:50%" title="Edit">
+               <i class="fas fa-edit"></i>
+               </a>
                                 
               </tr>
             @endforeach

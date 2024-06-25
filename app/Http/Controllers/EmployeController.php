@@ -136,7 +136,7 @@ class EmployeController extends Controller
            
             if(auth()->user()->role->value == '2')
             {
-                return redirect()->route('employes.show', ['employe' => $id])->with('success', 'Welcome! Successfully updated.');
+                return redirect()->route('employedashboard', ['employe' => $id])->with('success', 'Welcome! Successfully updated.');
 
             }
             else{
