@@ -160,4 +160,27 @@ class projectController extends Controller
           
       
     }
+    public function changestatus($id,$status){
+
+     if($status=="1")
+     {
+        $s = 0;
+     }
+     else {
+        $s =1;
+     }
+        $project = projects::find($id);
+        $project['status'] = $s;
+        $project->save();
+        if($project)
+        {
+           
+           return redirect()->To('projects')->with('success','Successfully updated your status');
+        }
+        else {
+            return redirect()->back()->with('fail','sorry! your project was not updated your status ');
+           
+        }
+    }
+    
 }

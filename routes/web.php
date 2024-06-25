@@ -26,8 +26,11 @@ Route::get('/clientdashboard', [App\Http\Controllers\LoginController::class, 'cl
 Route::get('/employedashboard', [App\Http\Controllers\LoginController::class, 'employedashboard'])->name('employedashboard');   
 Route::get('/assignEmployeview/{id}',[App\Http\Controllers\clientController::class,'assignEmployeview'])->name('assignEmployeview');
 Route::post('/assignEmploye',[App\Http\Controllers\clientController::class,'assignEmploye'])->name('assignEmploye');
+Route::get('/unassignEmployeview/{id}',[App\Http\Controllers\clientController::class,'unassignEmployeview'])->name('unassignEmployeview');
+Route::post('/assignEmploye',[App\Http\Controllers\clientController::class,'unassignEmploye'])->name('unassignEmploye');
 Route::get('/project_buy/{id}',[App\Http\Controllers\paymentController::class, 'index'])->name('project_buy');
 Route::resource('projects', 'App\Http\Controllers\projectController');
+Route::get('changestatus/{id}/{status}',[App\Http\Controllers\projectController::class,'changestatus'])->name('changestatus');
 Route::get('projects_sold/{id}',[App\Http\Controllers\paymentController::class, 'sold_projects'])->name('projects_sold');
 Route::resource('clients', 'App\Http\Controllers\clientController');
 Route::get('employeprojects/{id}',[App\Http\Controllers\EmployeController::class,'employeprojects'])->name('employeprojects');

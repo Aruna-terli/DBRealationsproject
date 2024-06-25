@@ -192,6 +192,45 @@ class clientcontroller extends Controller
         return view('clients.hire')->with(['employes' => $employes,'employe_id'=>$employe_id, 'projects' => $project]);
 
     }
+    public function unassignEmployeview($employe_id)
+    {
+        $employe = User::where('role','=',2)->where('id',$employe_id)->get();
+       
+        $client_id = Session::get('client_id');
+    
+        $client = User::with('clientProjects')->where('id',$client_id)->get();
+
+        $project = $client[0]->clientProjects;
+        
+     
+        return view('clients.unassign')->with(['employe' => $employe,'employe_id'=>$employe_id, 'projects' => $project]); 
+    }
+    public function unassignEmploye(Request $request)
+    {
+        $validation = $request->validate([
+            'project_id' =>'required',
+            'employe_id'=>'required',
+            
+           
+         ]);
+         $user = User::where('id', $request['employe_id'])->first();
+       
+         if ($user) {
+            $user->client_employees()
+            ->wherePivot('project_id', $request['project_id'])
+            ->detach(auth()->id());
+          }
+           
+ 
+          if($user){
+             return redirect()->To('employes')->with('success','successfully! Removed your employee in this  project');
+          }
+          else{
+             return redirect()->back()->with('fail','sorry! Not Removed your employee in this project ');
+          }
+ 
+        
+    }
     public function assignEmploye(Request $request)
     {
         $validation = $request->validate([

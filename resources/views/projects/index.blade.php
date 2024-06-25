@@ -32,6 +32,7 @@
                  @endif
                </td>
                <td><a href="{{route('projects.edit',$project['id'])}}">update</a>
+               <a href="{{route('changestatus',['id'=>$project['id'],'status'=>$project['status']])}}">change status</a>
                @if($project['status'] == '1')
                 
                  @else

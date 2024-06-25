@@ -53,6 +53,7 @@
                 <td>
                     @if(auth()->user()->role->value == 1)
                         <a href="{{ route('assignEmployeview', $employe['id']) }}" style="float:left;width:50%">Assign Project</a>
+                        <a href="{{ route('unassignEmployeview', $employe['id']) }}"style="float:left;width:50%">Unassign Rroject</a>
                     @elseif (auth()->user()->role->value == 3)
                         <a href="{{ route('employes.edit', $employe['id']) }}" style="float:left;width:50%">Update</a>
                         @if($employe->clientProjects->isEmpty())
