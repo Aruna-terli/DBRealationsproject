@@ -78,29 +78,36 @@ class paymentController extends Controller
        return redirect()->route('project_buy', ['id' => $response['notes']['user_id']])->with('success', 'Payment Successful');
     }
     
-    public function sold_projects(){
+    public function sold_projects($id){
+        $users = User::with('client_employees')
+        ->whereHas('client_employees', function ($query) use ($id) {
+            $query->where('project_id', '=', $id);
+        })
+        ->get();
+    
        
-        $projects =   Projects::with('clients')->get();
+        $project =   Projects::where('id','=',$id)->get();
+       
      
-     foreach ($projects as $project) {
-    $clients = [];
-    $employees = [];
-    $i = 0;
+//      foreach ($projects as $project) {
+//     $clients = [];
+//     $employees = [];
+//     $i = 0;
 
-    foreach ($project->clients as $client) {
-        if ($client->pivot->user_id != null) {
-            $clients[$i] = User::where('id', $client->pivot->user_id)->where('role', 1)->get();
-            $employees[$i] = User::where('id', $client->pivot->user_id)->where('role', 2)->get();
-            $i++;
-        }
-    }
+//     foreach ($project->clients as $client) {
+//         if ($client->pivot->user_id != null) {
+//             $clients[$i] = User::where('id', $client->pivot->user_id)->where('role', 1)->get();
+//             $employees[$i] = User::where('id', $client->pivot->user_id)->where('role', 2)->get();
+//             $i++;
+//         }
+//     }
 
-    // Assign the temporary arrays to the project object
-    $project->clients_data = $clients;
-    $project->employees_data = $employees;
-}
+//     // Assign the temporary arrays to the project object
+//     $project->clients_data = $clients;
+//     $project->employees_data = $employees;
+// }
     
      
-        return view('projects/sold')->with('projects',$projects);
+        return view('projects/sold')->with(['users'=>$users,'project'=>$project]);
     }
 }

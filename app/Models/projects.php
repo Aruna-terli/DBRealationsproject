@@ -32,6 +32,7 @@ class projects extends Model
         ->withTimestamps();
                    
     }
+
     
   
 }

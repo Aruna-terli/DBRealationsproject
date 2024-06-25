@@ -1,7 +1,7 @@
 @extends('layouts.app')
 <link rel="stylesheet" type="text/css" href="{{URL::to('css/registration.css')}}">
 @section('content')
-<a style="font-size:25px" href="{{route('home')}}">back</a>
+<a style="font-size:25px" href="{{route('projects.index')}}">back</a>
 
                  @if(Session::has('success'))
                     <div class="alert alert-success">{{Session::get('success')}}</div>
@@ -13,47 +13,40 @@
         <table>
             <tr>
                 <th>Project Name</th>
-                <th>Project Type</th>
-                <th>Amount</th>
+              
                 <th>client name</th>
                 <th>Employe Name</th>
                 
             </tr>
-            @foreach($projects as $project)
-               <tr>
-               <td>{{$project['name']}}</td>
-               <td>{{$project['type']}}</td>
-               <td>{{$project['amount']}}</td>
-             
-               <td>
-            @if(!empty($project->clients))
-                @foreach($project->clients as $user)
-                 @if($user->role==1)
-                    {{$user->name}} <br>
-               @endif
-                    
-                @endforeach
-            @else
-                
-            @endif
-        </td>
-        <td>
-            @if(!empty($project->clients))
-            @foreach($project->clients as $user)
-          
-               @if($user->role ==2)
-                
-               {{$user->name}} <br>
-
-              @endif           
-             
            
-            @endforeach
-            @endif
-        </td>
+             
+              
+             
+               
+                @foreach($users as $user)
+                @foreach($user->client_employees as $client)
+               
+                 @if($client->pivot->project_id == $project[0]['id'])
+                <tr>
+                <td>{{$project[0]['name']}}</td>
+                <td>
+                {{$client->name}}<br>
+                
+                 </td>
+                 <td>
+                   
+               @if($user->role->value == "2" && $client->role == "1" )
+                {{$user->name}}<br>
+                @endif
+           
+                </td>
+                </tr>
+                @endif
+             @endforeach
+             @endforeach
                                 
-              </tr>
-            @endforeach
+            
+         
 
         </table>
         

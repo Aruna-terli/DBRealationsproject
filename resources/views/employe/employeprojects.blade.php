@@ -20,38 +20,31 @@
                 
             </tr>
             @foreach($projects as $project)
+            @foreach($project->client_employees as $client)
+             @foreach($client->clientProjects as $project)
+             @if($client->pivot->project_id == $project->id)
                <tr>
                <td>{{$project['name']}}</td>
                <td>{{$project['type']}}</td>
                <td>{{$project['description']}}</td>
                
                <td>
-            @if(!empty($project->clients))
-                @foreach($project->clients as $user)
-                @if($user->role == '1')
-                    {{$user->name}} <br>
-                 @endif   
-                    
-                @endforeach
-            @else
-                
-            @endif
-        </td>
-        <td>
-            @if(!empty($project->clients))
-                @foreach($project->clients as $user)
-                @if($user->role == '2')
-                    {{$user->name}} <br>
+                 {{$client->name}} <br>
+   
+                </td>
+                <td>
+                    @foreach($employees as $employee)
+                    @if($employee->project_id == $project->id  && $employee->client_id == $client->id)
+                    {{$employee->name}}<br>
                     @endif
-                    
-                    
-                @endforeach
-            @else
-                
-            @endif
-        </td>
+                    @endforeach
+           
+               </td>
                                 
               </tr>
+              @endif
+              @endforeach
+            @endforeach
             @endforeach
 
         </table>

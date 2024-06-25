@@ -19,58 +19,55 @@
                 @if(Session::has('fail'))
                 <div class="alert alert-danger">{{Session::get('fail')}}</div>
                @endif         
-    <div id="clients">
-        <table>
+               <div id="clients">
+    <table>
+        <tr>
+            <th>Employe Name</th>
+            <th>Email Id</th>
+            <th>Contact NO</th>
+            <th>Gender</th>
+            <th>Projects</th>
+            <th>Actions</th>
+        </tr>
+        @foreach($employes as $employe)
             <tr>
-                <th>Employe Name</th>
-                <th>Email Id</th>
-                <th>Contant NO</th>
-                <th>Gender</th>
-                <th>projects</th>
-                <th>Actions</th>
+                <td>{{ $employe['name'] }}</td>
+                <td>{{ $employe['email'] }}</td>
+                <td>{{ $employe['phone_no'] }}</td>
+                <td>{{ $employe['gender'] }}</td>
+                <td>
+                    @if(!empty($employe['client_employees'])) 
+                        @foreach($employe['client_employees'] as $empl)
+                            @if(!empty($empl->clientProjects))
+                                @foreach($empl->clientProjects as $project)
+                                  @if($empl->pivot->project_id == $project->id)
+                                    {{ $project->name }}<br>
+                                    @endif
+                                @endforeach
+                            @else
+                                No projects 
+                            @endif
+                        @endforeach
+                    @endif
+                </td>
+                <td>
+                    @if(auth()->user()->role->value == 1)
+                        <a href="{{ route('assignEmployeview', $employe['id']) }}" style="float:left;width:50%">Assign Project</a>
+                    @elseif (auth()->user()->role->value == 3)
+                        <a href="{{ route('employes.edit', $employe['id']) }}" style="float:left;width:50%">Update</a>
+                        @if($employe->clientProjects->isEmpty())
+                            <form action="{{ route('employes.destroy', $employe['id']) }}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" style="float:right;width:50%">Delete</button>
+                            </form>  
+                        @endif
+                    @endif
+                </td>
             </tr>
-            @foreach($employes as $employe)
-               <tr>
-               <td>{{$employe['name']}}</td>
-               <td>{{$employe['email']}}</td>
-               <td>{{$employe['phone_no']}}</td>
-               <td>{{$employe['gender']}}</td>
-              
-               <td>
-            @if(!empty($employe->clientProjects))
-                @foreach($employe->clientProjects as $project)
-                    {{$project->name}}
-                    <br> 
-                @endforeach
-            @else
-                No projects 
-            @endif
-        </td>
-        
-               <td>
-                @if(auth()->user()->role->value == 1)
-                <a href="{{route('assignEmployeview',$employe['id'])}}" style="float:left;width:50%" >assign project</a>
-                @elseif (auth()->user()->role->value == 3)
-                <a href="{{route('employes.edit',$employe['id'])}}" style="float:left;width:50%" >Update </a>
-                     @if($employe->clientProjects->isEmpty())
-                        <form action="{{route('employes.destroy',$employe['id'])}}" method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" style="float:right;width:50%" value=delete>delete</button>
-                        </form>  
-                     @endif
-
-                @endif
-              </td>
-               <!-- <form action="{{route('employes.destroy',$employe['id'])}}" method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" style="float:right;width:50%" value=delete>delete</button>
-               </form>                     -->
-              </tr>
-            @endforeach
-
-        </table>
+        @endforeach
+    </table>
+</div>
         
     </div>      
 @endsection

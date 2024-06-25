@@ -15,41 +15,16 @@
                 <th>Project Name</th>
                 <th>Project Type</th>
                 <th>Amount</th>
-                <th>Client </th>
-                <th>Employees</th>
                 <th>Payment Status</th>
                 <th>Actions</th>
             </tr>
             @foreach($projects as $key => $project)
                <tr>
-               <td>{{$project['name']}}</td>
+               <td><a href="{{route('projects_sold',['id'=>$project->id])}}">{{$project['name']}}</a></td>
                <td>{{$project['type']}}</td>
                <td>{{$project['amount']}}</td>
-               <td>
-            @if(!empty($project->clients))
-                @foreach($project->clients as $user)
-                 @if($user->role== 1)
-                    {{$user->name}}
-                    @endif
-                    <br> 
-                @endforeach
-            @else
-                
-            @endif
-        </td>
-        <td>
-            @if(!empty($project->clients))
-                @foreach($project->clients as $user)
-                @if($user->role == 2)
-                    {{$user->name}} <br>
-                    @endif
-                     
-                @endforeach
-            @else
-                
-            @endif
-        </td>
-               <td>
+              
+            <td>
                 @if($project['status'] == '1')
                  {{ 'Active' }}
                  @else

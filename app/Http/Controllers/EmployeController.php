@@ -15,10 +15,13 @@ class EmployeController extends Controller
      */
     public function index()
     {
-        $employes = User::select("*")->where('role','=',2)
+        $employes = User::
+    where('role', '=', 2)
+    ->with('client_employees.clientProjects')
+   
+    ->get();
 
-        ->with('clientProjects')->get();
-       
+    
           return view('employe.index')->with('employes',$employes);
     }
 
@@ -175,18 +178,22 @@ class EmployeController extends Controller
     
     }
     public function employeprojects($id){
-        $employee = User::where('id', $id)->with('clientProjects')->get();
-        $projectIds = [];
-        
-        foreach ($employee as $employe) {
-            foreach ($employe->clientProjects as $project) {
-                $projectIds[] = [$project->id]; // Collect project IDs in the array
-            }
-        }
+        $projects = User::with('client_employees.clientProjects')->where('id', $id)->get();
+        $employee = User::with('client_employees')
+        ->leftjoin('clients_employees','clients_employees.employee_id','=','users.id')->get();
+       
      
-      $projects = Projects::whereIn('id',$projectIds)->with('clients')->get();
+    //     $projectIds = [];
+        
+    //     foreach ($employee as $employe) {
+    //         foreach ($employe->clientProjects as $project) {
+    //             $projectIds[] = [$project->id]; // Collect project IDs in the array
+    //         }
+    //     }
+     
+    //   $projects = Projects::whereIn('id',$projectIds)->with('clients')->get();
    
     
-        return view('employe/employeprojects')->with(['projects'=> $projects, 'employee' => $employee]);
+        return view('employe/employeprojects')->with( ['projects'=>$projects,'employees'=> $employee]);
     }
 }

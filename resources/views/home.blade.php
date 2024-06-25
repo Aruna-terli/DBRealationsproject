@@ -31,11 +31,7 @@
                         <h2>Clients</h2>
                        <a style="color:white"href="{{route('clients.index')}}">Clients operations</a>
                         </div>
-                        <div class="project-box">
-                        <h2> Projects</h2>
-                       <a style="color:white"href="{{route('projects_sold')}}">Sold projects details</a>
-                       
-                        </div>
+                        
                         <div class="project-box">
                         <h2> Employee</h2>
                        <a style="color:white"href="{{route('employes.index')}}">Employee details</a>

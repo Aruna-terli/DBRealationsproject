@@ -197,6 +197,7 @@ class clientcontroller extends Controller
         $validation = $request->validate([
             'project_id' =>'required',
             'employe_id'=>'required',
+            
            
          ]);
   
@@ -204,7 +205,7 @@ class clientcontroller extends Controller
          $user = User::where('id', $request['employe_id'])->first();
        
         if ($user) {
-            $user->clientProjects()->attach($request['project_id']);
+            $user->client_employees()->attach(auth()->id(), ['project_id' => $request['project_id']]);
          }
           
 
