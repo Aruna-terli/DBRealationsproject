@@ -1,7 +1,7 @@
 @extends('layouts.app')
 <link rel="stylesheet" type="text/css" href="{{URL::to('css/registration.css')}}">
 @section('content')
-<a style="font-size:20px" href="{{route('home')}}" title="Back">
+<a style="font-size:20px;margin-left:35px;" href="{{route('home')}}" title="Back">
 <i class="fas fa-arrow-left"></i>
 </a>
 <a style="font-size:20px;float:right;margin-right:2%"href="{{route('projects.create')}}">Register new project</a>

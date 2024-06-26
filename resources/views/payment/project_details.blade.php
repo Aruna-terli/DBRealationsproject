@@ -1,7 +1,7 @@
 @extends('layouts.app')
 <link rel="stylesheet" type="text/css" href="{{ URL::to('css/registration.css') }}">
 @section('content')
-<a style="font-size:20px" href="{{ route('clientdashboard') }}">
+<a style="font-size:20px;margin-left: 35px;" href="{{ route('clientdashboard') }}">
 <i class="fas fa-arrow-left"></i>
 </a>
 

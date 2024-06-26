@@ -1,7 +1,7 @@
 @extends('layouts.app')
 <link rel="stylesheet" type="text/css" href="{{URL::to('css/registration.css')}}">
 @section('content')
-<a style="font-size:20px" href="{{route('employedashboard')}}">
+<a style="font-size:20px;margin-left: 35px;" href="{{route('employedashboard')}}">
 <i class="fas fa-arrow-left"></i>
 </a>
 

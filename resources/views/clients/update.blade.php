@@ -4,15 +4,15 @@
 </head>
 <body>
 @if (auth()->user()->role->value == 2)
-    <a style="font-size:20px" href="{{ route('employedashboard') }}" title="Back">
+    <a style="font-size:20px;margin-left: 35px;" href="{{ route('employedashboard') }}" title="Back">
     <i class="fas fa-arrow-left"></i>
     </a>
 @elseif (auth()->user()->role->value == 1)
-    <a style="font-size:20px" href="{{ route('clientdashboard') }}" title="Back">
+    <a style="font-size:20px;margin-left: 35px;" href="{{ route('clientdashboard') }}" title="Back">
     <i class="fas fa-arrow-left"></i>
     </a>
 @else
-    <a style="font-size:20px" href="{{ route('home') }}" title="Back">
+    <a style="font-size:20px;margin-left: 35px;" href="{{ route('home') }}" title="Back">
     <i class="fas fa-arrow-left"></i>
     </a>
 @endif

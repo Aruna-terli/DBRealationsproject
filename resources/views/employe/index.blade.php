@@ -5,16 +5,16 @@
 @section('content')
 
 @if (auth()->user()->role->value == 2)
-<a style="font-size:20px;padding-left:10px;" href="{{ route('employedashboard') }}">
+<a style="font-size:20px;margin-left:35px;" href="{{ route('employedashboard') }}">
         <i class="fas fa-arrow-left"></i> 
     </a>
 @elseif (auth()->user()->role->value == 1)
-    <a style="font-size:20px;padding-left:10px;" href="{{ route('clientdashboard') }}">
+    <a style="font-size:20px;margin-left:35px;" href="{{ route('clientdashboard') }}">
         <i class="fas fa-arrow-left"></i> 
     </a>
     <a style="font-size:20px;float:right;margin-right:4%"href="{{route('employes.create')}}">Register new Employee</a>
 @else
-    <a style="font-size:20px" href="{{ route('home') }}" title="Back">
+    <a style="font-size:20px;margin-left: 35px;" href="{{ route('home') }}" title="Back">
     <i class="fas fa-arrow-left"></i>
     </a>
     <a style="font-size:20px;float:right;margin-right:4%"href="{{route('employes.create')}}">Register new Employee</a>

@@ -142,7 +142,7 @@ class clientcontroller extends Controller
         {
             if(auth()->user()->role->value == '1')
             {
-                return redirect()->route('clients.show', ['client' => $id])->with('success', 'Welcome! Successfully updated.');
+                return redirect()->route('clientdashboard', ['client' => $id])->with('success', 'Welcome! Successfully updated.');
 
             }
             

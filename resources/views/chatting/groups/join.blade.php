@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
         <div class="d-flex justify-content-between mb-3">
-                <a style="font-size:20px" href="{{ route('chat') }}">
+                <a style="font-size:20px;margin-left: 35px;" href="{{ route('chat') }}">
                 <i class="fas fa-arrow-left"></i>
                 </a>
                 <div>
