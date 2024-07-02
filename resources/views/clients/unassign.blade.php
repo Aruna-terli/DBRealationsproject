@@ -43,11 +43,14 @@
                             @endforeach
                         </select>
                     </div>
-                   
+                    <div style="margin-top: 20px;">
+          <a href="{{ route('employes.index') }}" class="btn_link" style="margin-left:25%;padding:1% 4%">Back</a>  
+          <input type="submit" value="Submit" class="btn_update"style="padding:1% 4%" >
+        </div>
              
             
             
-          <input type="submit" value="submit" class="btn_reg">
+          
         </div>
     </div>
 </div>

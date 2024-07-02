@@ -1,26 +1,16 @@
 <!DOCTYPE html>
 <head>
   <link rel="stylesheet" type="text/css" href="{{URL::to('css/registration.css')}}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
 <form method ="post" action="{{route('employes.store')}}">  
-@if (auth()->user()->role->value == 2)
-    <a style="font-size:20px;margin-left: 35px;" href="{{ route('employedashboard') }}">
-    <i class="fas fa-arrow-left"></i>
-    </a>
-@elseif (auth()->user()->role->value == 1)
-    <a style="font-size:20px;margin-left: 35px;" href="{{ route('employes.index') }}">
-    <i class="fas fa-arrow-left"></i>
-    </a>
-@else
-    <a style="font-size:20px;margin-left: 35px;" href="{{ route('employes.index') }}">
-    <i class="fas fa-arrow-left"></i>
-    </a>
-@endif
+
   @csrf <!-- {{ csrf_field() }} -->
     <div class="reg">
        
         <div class="reg_form">
+          
           <h2>Registration of employee</h2>
           <div class="col-md-5">
               @if(Session::has('success'))
@@ -77,7 +67,8 @@
                         @endif
               </div>
               <div class="column2">
-                       <lable class="gender">Choose your Gender</lable>
+                       <lable style="font-size: 20px;margin: 0% 0%;">Choose your Gender:</lable>
+                       <span style="color :red">*</span>
                        
                         <div class="gen_details">
                         <input type="radio" id="male" name="gender" value="male" {{ old('gender') == 'male' ? 'checked' : '' }}>
@@ -99,9 +90,17 @@
               </div>
               
           </div>
-</div>  
-   
-          <input type="submit" value="Register" class="btn_reg">
+</div>
+<div class="button-container">
+            @if (auth()->user()->role->value == 2)
+              <a class="btn_link"  style="margin-bottom: 9%;"href="{{ route('employedashboard') }}">Back</a>
+            @elseif (auth()->user()->role->value == 1)
+              <a class="btn_link" style="margin-bottom: 9%;" href="{{ route('employes.index') }}">Back</a>
+            @else
+              <a class="btn_link" style="margin-bottom: 9%;" href="{{ route('employes.index') }}">Back</a>
+            @endif
+            <input type="submit" value="Register" class="btn_update">
+          </div>
         </div>
     </div>
 </div>

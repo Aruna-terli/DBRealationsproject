@@ -30,7 +30,7 @@
                       <lable >Enter Your Email ID: </lable>
                        <span style="color :white">*</span>
              
-                      <input type= "text"  name ="email" placeholder="enter your email id " size = "25">
+                      <input type= "text"  name ="email" placeholder="Enter your email id " size = "25">
                       
                
                    </div>
@@ -38,7 +38,7 @@
                       <lable >Enter Your Password : </lable>
                         <span style="color :white">*</span>
              
-                     <input type= "password" name="password" size= "25" placeholder="enter your password ">
+                     <input type= "password" name="password" size= "25" placeholder="Enter your password ">
                
                     </div>
                     <div class="buttoncenter"> 

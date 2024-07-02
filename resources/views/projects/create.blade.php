@@ -28,7 +28,7 @@
               <lable style="font-size:20px" >Project Name : </lable>
                        <span style="color :red">*</span>
              
-                      <input type= "text" style="width:60%;margin-left:5%"  name ="project_name" placeholder="enter your full name " size = "25"value="{{ old('project_name') }}" ><br>
+                      <input type= "text" style="width:60%;margin-left:5%"  name ="project_name" placeholder="Enter Project name " size = "25"value="{{ old('project_name') }}" ><br>
                       @if ($errors->has('project_name'))
                             <span style="color:red;margin-left:25%">{{ $errors->first('project_name') }}</span>
                             @endif
@@ -38,7 +38,7 @@
               <lable style="font-size:20px" >Price for project: </lable>
                        <span style="color :red">*</span>
              
-                      <input type= "number" style="width:60%;margin-left:3%"  name ="price" placeholder="enter price " size = "25" value="{{ old('price') }}" autocomplete="price" autofocus><br>
+                      <input type= "number" style="width:60%;margin-left:3%"  name ="price" placeholder="Enter price " size = "25" value="{{ old('price') }}" autocomplete="price" autofocus><br>
                       @if ($errors->has('price'))
                          <span style="color:red;margin-left:25%">{{ $errors->first('price') }}</span>
                         @endif
@@ -46,9 +46,9 @@
              
             <div >
               
-               <lable class="gender">Project Type :</lable>
+               <lable  style="font-size: 20px;margin: 0% 0%;">Project Type :</lable>
                 <span style="color:red">*</span>
-                <select name="project_type"style="width:60%;margin-left:4%"  id="project_type">
+                <select name="project_type"style="width:60%;margin-left:6%"  id="project_type">
                    <option value="">select project type</option>
                    <option  value="e-commernce">e-commerce</option>
                     <option  value="health">health</option>
@@ -64,14 +64,20 @@
                 <lable style="font-size:20px" >Description: </lable>
                        <span style="color :red">*</span>
              
-                      <textarea style="width:60%;margin-left:7%;margin-top:3%"  name ="description" rows="5" cols ="50" placeholder="describe project "  value="{{ old('descrption') }}" >
+                      <textarea style="width:60%;margin-left:8%;margin-top:3%"  name ="description" rows="5" cols ="50" placeholder="Describe project "  value="{{ old('descrption') }}" >
                      </textarea><br><br>
                       @if ($errors->has('description'))
                          <span style="color:red;margin-left:25%">{{ $errors->first('description') }}</span>
                         @endif
           
             </div>
-          <input type="submit" value="save" class="btn_reg">
+            <div style="margin-top:10px">
+          
+              <a class="btn_link" style="margin-bottom: 9%;margin-left:30%;padding:1% 4%"  href="{{ route('projects.index') }}">Back</a>
+          
+            <input type="submit" style="padding:1% 4%" value="Save" class="btn_update">
+          </div>
+         
         </div>
     </div>
 </div>

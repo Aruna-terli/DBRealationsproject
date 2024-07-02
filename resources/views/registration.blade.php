@@ -63,7 +63,8 @@
                             @endif
                     </div>
                    <div class="column1">
-                       <lable class="gender">Choose your Gender</lable>
+                       <lable class="gender">Choose your Gender:</lable>
+                       <span style="color :red">*</span>
                         <div class="gen_details">
                         <input type="radio" id="male" name="gender" value="male" {{ old('gender') == 'male' ? 'checked' : '' }}>
                                 <label for="male" class="male">Male</label>

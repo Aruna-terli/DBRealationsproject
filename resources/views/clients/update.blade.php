@@ -51,7 +51,7 @@
               <lable style="font-size:20px" >FullName : </lable>
                        <span style="color :red">*</span>
              
-                      <input type= "text" style="width:70%;margin-left:6%" name ="full_name" placeholder="enter your full name " size = "25"value="{{ $client[0]->name }}" required autocomplete="full_name" autofocus><br>
+                      <input type= "text" style="width:70%;margin-left:8%" name ="full_name" placeholder="Enter your full name " size = "25"value="{{ $client[0]->name }}" required autocomplete="full_name" autofocus><br>
                       @if ($errors->has('full_name'))
                             <span style="color:red">{{ $errors->first('full_name') }}</span>
                             @endif
@@ -60,7 +60,7 @@
                  <lable  style="font-size:20px"> Email  ID : </lable>
                   <span style="color :red">*</span>
       
-                 <input type= "text"  style="width:70%;margin-left:7%" name ="email_id" placeholder="enter your email id " size = "25" value="{{$client[0]->email}}"readonly required autocomplete="email_id" autofocus><br>
+                 <input type= "text"  style="width:70%;margin-left:9%" name ="email_id" placeholder="Enter your email id " size = "25" value="{{$client[0]->email}}"readonly required autocomplete="email_id" autofocus><br>
                    @if ($errors->has('email_id'))
                      <span style="color:red">{{ $errors->first('email_id') }}</span>
                      @endif
@@ -69,13 +69,14 @@
               <lable style="font-size:20px" >Phone Number : </lable>
                        <span style="color :red">*</span>
              
-                      <input type= "text"  style="width:70%" name ="phone_no" placeholder="enter your phone number " size = "25" value="{{$client[0]->phone_no}} " required autocomplete="phone_no" autofocus><br>
+                      <input type= "text"  style="width:70%;margin-left:1%" name ="phone_no" placeholder="Enter your phone number " size = "25" value="{{$client[0]->phone_no}} " required autocomplete="phone_no" autofocus><br>
                       @if ($errors->has('phone_no'))
                          <span style="color:red">{{ $errors->first('phone_no') }}</span>
                         @endif
               </div>
              <div class="column1">
-                       <lable class="gender">Choose your Gender</lable>
+                       <lable style="font-size: 20px;margin: 0% 0%;">Choose your Gender:</lable>
+                       <span style="color :red">*</span>
                         <div class="gen_details">
 
                         @if($client[0]->gender == "male")
@@ -105,7 +106,17 @@
              
             
             
-          <input type="submit" value="update" class="btn_reg">
+          <div style="margin-top: 20px;">
+             @if (auth()->user()->role->value == 2)
+  
+          <a href="{{ route('employedashboard') }}" class="btn_link" style="margin-left:30%;padding:1% 4%">Back</a>  
+          @elseif (auth()->user()->role->value == 1)
+            <a href="{{ route('clientdashboard') }}" class="btn_link" style="margin-left:30%;padding:1% 4%">Back</a> 
+          @else
+           <a href="{{ route('home') }}" class="btn_link" style="margin-left:30%;padding:1% 4%">Back</a> 
+          @endif
+          <input type="submit" value="Update" class="btn_update"style="padding:1% 4%" >
+        </div>
         </div>
     </div>
 </div>

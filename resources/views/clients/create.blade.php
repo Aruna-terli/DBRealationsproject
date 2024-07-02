@@ -77,7 +77,8 @@
                         @endif
               </div>
               <div class="column2">
-                       <lable class="gender">Choose your Gender</lable>
+                       <lable class="gender">Choose your Gender:</lable>
+                       <span style="color :red">*</span>
                         <div class="gen_details">
                             <input type="radio" id= "male" name="gender" value="male" checked>
                             <lable for="male" class="male">Male</lable>
@@ -102,7 +103,16 @@
           </div>
 </div>  
    
-          <input type="submit" value="Register" class="btn_reg">
+         <div class="button-container">
+            @if (auth()->user()->role->value == 2)
+              <a class="btn_link" style="margin-bottom: 10%;" href="{{ route('employedashboard') }}">Back</a>
+            @elseif (auth()->user()->role->value == 1)
+              <a class="btn_link" style="margin-bottom: 10%;"  href="{{ route('employes.index') }}">Back</a>
+            @else
+              <a class="btn_link" style="margin-bottom: 10%;"  href="{{ route('employes.index') }}">Back</a>
+            @endif
+            <input type="submit" style="margin-bottom: 7%;" value="Register" class="btn_update">
+          </div>
         </div>
     </div>
 </div>

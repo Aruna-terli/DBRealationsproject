@@ -24,7 +24,7 @@
                  <lable >Enter Your UserId : </lable>
                   <span style="color :white">*</span>
         
-                 <input type= "text"  name ="email" placeholder="enter your user id " size = "25">
+                 <input type= "text"  name ="email" placeholder="Enter your user id " size = "25">
           
               </div>
               <div class="userid">

@@ -28,7 +28,7 @@
                 <th>Email Id</th>
                 <th>Contant NO</th>
                 <th>Gender</th>
-                <th>projects</th>
+                <th>Projects</th>
                 <th>Actions</th>
             </tr>
             @foreach($clients as $client)
