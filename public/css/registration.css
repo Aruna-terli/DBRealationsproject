@@ -179,3 +179,8 @@ input[type="radio"]
   background-color: #82808c;
   color: white;
 }
+input:read-only {
+  background-color: #f5f7f8; /* Light grey background */
+  color: #6c757d; /* Text color */
+  border: 1px solid #ced4da; /* Border color */
+}
